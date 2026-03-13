@@ -1,36 +1,178 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
 
-const app = express();
-const PORT = 8080;
+const User = require("./models/user")
+const Item = require("./models/item")
+const Offer = require("./models/offer")
+const Tag = require("./models/tag")
+const Location = require("./models/location")
 
-app.use(cors());
-app.use(express.json());
+const app = express()
+const PORT = 8080
+
+app.use(cors())
+app.use(express.json())
 
 mongoose.connect("mongodb://127.0.0.1:27017/knightSwap")
-.then(() => {
-    console.log("MongoDB Connected");
-})
-.catch((err) => {
-    console.log("MongoDB Connection Error:", err);
-});
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log("MongoDB Connection Error:", err))
 
 app.get("/", (req, res) => {
-    res.send("Knight Swap API Running");
-});
+    res.send("Knight Swap API Running")
+})
 
+app.post("/users", async (req, res) => {
+    try {
+        const newUser = new User(req.body)
+        await newUser.save()
+        res.json({ message: "User created successfully" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error creating user")
+    }
+})
 
-app.get("/test", (req, res) => {
-    res.json({ message: "Server is working correctly" });
-});
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.find()
+        res.json(users)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving users")
+    }
+})
 
+app.post("/items", async (req, res) => {
+    try {
+        const newItem = new Item(req.body)
+        await newItem.save()
+        res.json({ message: "Item created successfully" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error creating item")
+    }
+})
+
+app.get("/items", async (req, res) => {
+    try {
+        const items = await Item.find().populate("location").populate("tags")
+        res.json(items)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving items")
+    }
+})
+
+app.get("/items/:id", async (req, res) => {
+    try {
+        const item = await Item.findById(req.params.id).populate("location").populate("tags")
+        res.json(item)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving item")
+    }
+})
+
+app.put("/items/:id", async (req, res) => {
+    try {
+        const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.json(updatedItem)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error updating item")
+    }
+})
+
+app.delete("/items/:id", async (req, res) => {
+    try {
+        await Item.findByIdAndDelete(req.params.id)
+        res.json({ message: "Item deleted" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error deleting item")
+    }
+})
+
+app.post("/offers", async (req, res) => {
+    try {
+        const newOffer = new Offer(req.body)
+        await newOffer.save()
+        res.json({ message: "Offer created" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error creating offer")
+    }
+})
+
+app.get("/offers", async (req, res) => {
+    try {
+        const offers = await Offer.find()
+        res.json(offers)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving offers")
+    }
+})
+
+app.get("/tags", async (req, res) => {
+    try {
+        const tags = await Tag.find()
+        res.json(tags)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving tags")
+    }
+})
+
+app.get("/locations", async (req, res) => {
+    try {
+        const locations = await Location.find()
+        res.json(locations)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error retrieving locations")
+    }
+})
+
+app.get("/seedData", async (req, res) => {
+    try {
+        const locations = [
+            "Library Floor 1",
+            "Library Floor 2",
+            "Library Floor 3",
+            "Library Floor 4",
+            "Classroom Building 1",
+            "Classroom Building 2",
+            "Student Union Floor 1",
+            "Student Union Floor 2",
+            "Student Union Floor 3",
+            "Student Union Floor 4"
+        ]
+        const tags = [
+            "Tech",
+            "Textbooks",
+            "Furniture",
+            "Clothes",
+            "Electronics",
+            "School Supplies",
+            "Misc"
+        ]
+        await Location.deleteMany({})
+        await Tag.deleteMany({})
+        for (let loc of locations) {
+            await new Location({ name: loc }).save()
+        }
+        for (let tag of tags) {
+            await new Tag({ name: tag }).save()
+        }
+        res.send("Database seeded successfully")
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error seeding database")
+    }
+})
 
 app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
-});
-
-const User = require("./models/user");
-const Item = require("./models/item");
-const Tag = require("./models/tag");
-const Location = require("./models/location");
+    console.log("Server running on port " + PORT)
+})
