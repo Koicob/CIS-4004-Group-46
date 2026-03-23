@@ -1,14 +1,16 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
 
 export default function Seller() {
-
-    const authContext = useContext(AuthContext);
-    const loggedInUser = authContext.user;
+    const savedUserString = localStorage.getItem("savedUser");
+    if (savedUserString !== null) {
+        loggedInUser = JSON.parse(savedUserString);
+    }
+    
     const [titleInput, setTitleInput] = useState("");
     const [priceInput, setPriceInput] = useState("");
     const [descriptionInput, setDescriptionInput] = useState("");
     const [locationInput, setLocationInput] = useState("");
+    
     const [myItemsList, setMyItemsList] = useState([]);
     const [locationsList, setLocationsList] = useState([]);
 
@@ -16,11 +18,9 @@ export default function Seller() {
         const getLocationsFromServer = async () => {
             try {
                 let response = await fetch("http://localhost:8080/locations");
-                
                 if (response.ok === true) {
                     let data = await response.json();
                     setLocationsList(data);
-                    
                     if (data.length > 0) {
                         setLocationInput(data[0]._id);
                     }
@@ -34,19 +34,15 @@ export default function Seller() {
             if (loggedInUser !== null) {
                 try {
                     let response = await fetch("http://localhost:8080/items");
-                    
                     if (response.ok === true) {
                         let allItems = await response.json();
                         let filteredArray = [];
                         
                         for (let i = 0; i < allItems.length; i = i + 1) {
-                            let currentItem = allItems[i];
-                            
-                            if (currentItem.sellerId === loggedInUser._id) {
-                                filteredArray.push(currentItem);
+                            if (allItems[i].sellerId === loggedInUser._id) {
+                                filteredArray.push(allItems[i]);
                             }
                         }
-                        
                         setMyItemsList(filteredArray);
                     }
                 } catch (error) {
@@ -58,7 +54,7 @@ export default function Seller() {
         getLocationsFromServer();
         getMyItemsFromServer();
         
-    }, [loggedInUser]); 
+    }, []);
 
     const handleUploadSubmit = async (event) => {
         event.preventDefault(); 
@@ -74,9 +70,7 @@ export default function Seller() {
         try {
             let response = await fetch("http://localhost:8080/items", {
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItemData)
             });
 
@@ -98,9 +92,7 @@ export default function Seller() {
 
             let response = await fetch("http://localhost:8080/items/" + itemIdToDelete, {
                 method: "DELETE",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(deleteData)
             });
 
@@ -113,6 +105,11 @@ export default function Seller() {
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("savedUser");
+        window.location.href = "/"; 
+    };
+
     if (loggedInUser === null) {
         return <h2>Please log in to view the Seller Dashboard.</h2>;
     }
@@ -121,6 +118,7 @@ export default function Seller() {
         <div>
             <h2>Seller Dashboard</h2>
             <p>Welcome, {loggedInUser.username}!</p>
+            <button onClick={handleLogout}>Log Out</button>
             
             <hr />
             

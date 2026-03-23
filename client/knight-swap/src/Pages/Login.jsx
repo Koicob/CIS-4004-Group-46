@@ -1,14 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
     const [usernameInput, setUsernameInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     
-
-    const authContext = useContext(AuthContext); 
-    const loginFunction = authContext.login; 
     const navigate = useNavigate();
 
     const handleLoginSubmit = async (event) => {
@@ -30,10 +26,10 @@ export default function Login() {
 
             if (response.ok === true) {
                 let responseData = await response.json();
-                
                 let loggedInUser = responseData.user;
                 
-                loginFunction(loggedInUser);
+                let userAsString = JSON.stringify(loggedInUser);
+                localStorage.setItem("savedUser", userAsString);
                 
                 alert("Login successful!");
                 navigate("/seller"); 
@@ -42,7 +38,6 @@ export default function Login() {
             }
         } catch (error) {
             console.log(error);
-            alert("Could not connect to the server.");
         }
     };
 
@@ -57,7 +52,6 @@ export default function Login() {
                     onChange={(event) => setUsernameInput(event.target.value)} 
                     required 
                 />
-                
                 <br /><br />
                 
                 <label>Password: </label>
@@ -66,15 +60,12 @@ export default function Login() {
                     onChange={(event) => setPasswordInput(event.target.value)} 
                     required 
                 />
-                
                 <br /><br />
                 
                 <button type="submit">Log In</button>
             </form>
 
             <br /><br />
-            
-            <p>Don't have an account?</p>
             <button onClick={() => navigate("/register")}>Go to Register Page</button>
         </div>
     );

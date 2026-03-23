@@ -1,9 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
 
 export default function Admin() {
-    const authContext = useContext(AuthContext);
-    const loggedInUser = authContext.user;
+const savedUserString = localStorage.getItem("savedUser");
+    let loggedInUser = null;
+    
+    if (savedUserString !== null) {
+        loggedInUser = JSON.parse(savedUserString);
+    }
     
     const [allMarketItems, setAllMarketItems] = useState([]);
     const [allRegisteredUsers, setAllRegisteredUsers] = useState([]);
