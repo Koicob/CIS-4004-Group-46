@@ -6,7 +6,7 @@ const ItemSchema = new mongoose.Schema({
     price: Number,
     sellerId: String,
 
-    tags: [String],
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
 
     location: {
         type: mongoose.Schema.Types.ObjectId,
