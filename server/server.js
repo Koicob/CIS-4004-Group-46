@@ -8,23 +8,11 @@ const Offer = require("./models/offer")
 const Tag = require("./models/tag")
 const Location = require("./models/location")
 
-const multer = require("multer");
-const path = require("path");
-
 const app = express()
 const PORT = 8080
 
-const storage = multer.diskStorage({
-    destination: "./uploads/",
-    filename: (req, file, cb) => {
-        cb(null, `image-${Date.now()}${path.extname(file.originalname)}`);
-    },
-});
-const upload = multer({ storage });
-
 app.use(cors())
 app.use(express.json())
-app.use("/uploads", express.static("uploads"));
 
 mongoose.connect("mongodb://127.0.0.1:27017/knightSwap")
 .then(() => console.log("MongoDB Connected"))
@@ -39,8 +27,6 @@ app.post("/users", async (req, res) => {
         const newUser = new User(req.body)
         await newUser.save()
         res.json({ message: "User created successfully" })
-        //Potentially store user ID in local storage for creation management (not secure, just for demo purposes)
-        localStorage.setItem("userId", data._id);
     } catch (error) {
         console.log(error)
         res.status(500).send("Error creating user")
@@ -56,34 +42,6 @@ app.get("/users", async (req, res) => {
         res.status(500).send("Error retrieving users")
     }
 })
-
-app.post("/upload", upload.single("image"), (req, res) => {
-    res.json({ imagePath: `http://localhost:8080/uploads/${req.file.filename}` });
-});
-
-
-
-app.post("/login", async (req, res) => {
-    try {
-        let loginUsername = req.body.username;
-        let loginPassword = req.body.password;
-        const foundUser = await User.findOne({ 
-            username: loginUsername, 
-            password: loginPassword 
-        });
-        
-     
-        if (foundUser !== null) {
-            res.json({ message: "Login successful", user: foundUser });
-        } else {
-
-            res.status(401).send("Invalid credentials");
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).send("Error during login");
-    }
-});
 
 app.post("/items", async (req, res) => {
     try {
@@ -118,7 +76,7 @@ app.get("/items/:id", async (req, res) => {
 
 app.put("/items/:id", async (req, res) => {
     try {
-        const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' })
+        const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true })
         res.json(updatedItem)
     } catch (error) {
         console.log(error)
