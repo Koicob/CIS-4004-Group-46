@@ -1,42 +1,338 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+}
+
+.landing-page {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.8s ease-in-out;
+}
+
+.overlay {
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 24px 36px;
+  position: relative;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.nav-login,
+.nav-signup,
+.hero-signup,
+.hero-login-link,
+.main-button {
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+}
+
+.nav-login,
+.nav-signup {
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 15px;
+}
+
+.nav-login {
+  background-color: #111;
+  color: white;
+}
+
+.nav-signup {
+  background-color: #ffcc00;
+  color: #111;
+}
+
+.hero-section {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  padding-left: 80px;
+}
+
+.hero-text {
+  max-width: 650px;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 72px;
+  line-height: 0.98;
+  color: white;
+}
+
+.highlight-gold {
+  color: #ffcc00;
+}
+
+.highlight-white {
+  color: #ffffff;
+}
+
+.dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.active-dot {
+  background-color: #ffcc00;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-signup {
+  background-color: #ffcc00;
+  color: #111;
+  padding: 15px 24px;
+  border-radius: 28px;
+  font-size: 16px;
+}
+
+.hero-login-link {
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 430px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 32px 30px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #222;
+}
+
+.modal-card h2 {
+  font-size: 40px;
+  text-align: center;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 22px;
+}
+
+.modal-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-card label {
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #222;
+}
+
+.modal-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cfcfcf;
+  border-radius: 16px;
+  font-size: 16px;
+}
+
+.main-button {
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 24px;
+  background-color: #ffcc00;
+  color: #111;
+  font-size: 17px;
+}
+
+.switch-text {
+  margin-top: 18px;
+  text-align: center;
+  color: #444;
+}
+
+.switch-text span {
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+}
+
+@media (max-width: 950px) {
+  .overlay {
+    padding: 20px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .hero-section {
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .hero-text h1 {
+    font-size: 54px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 700px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-section {
+    min-height: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .hero-text h1 {
+    font-size: 42px;
+  }
+
+  .modal-card {
+    max-width: 100%;
+    border-radius: 24px;
+    padding: 28px 20px;
+  }
+
+  .modal-card h2 {
+    font-size: 32px;
+  }
+
+  .hero-login-link {
+    width: 100%;
+    text-align: center;
   }
 }
 
-.card {
-  padding: 2em;
+@media (max-width: 480px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+  }
+
+  .nav-login,
+  .nav-signup {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .hero-text h1 {
+    font-size: 34px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .hero-signup {
+    width: 100%;
+  }
+
+  .modal-card h2 {
+    font-size: 28px;
+  }
+
+  .modal-card input {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+
+  .main-button {
+    font-size: 16px;
+  }
 }
 
-.read-the-docs {
-  color: #888;
-}
