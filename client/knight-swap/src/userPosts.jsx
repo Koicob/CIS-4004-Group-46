@@ -142,7 +142,7 @@ export default function UserPosts() {
                                                 </div>
                                             </div>    
                                             
-                                            <div id="posts-info" className="form control rounded border">
+                                            <div id="posts-info" className="form-control rounded border">
                                                 <div className="m-4">
                                                     {/* Title, Desc, Price */}
                                                     <label>Title:</label>
