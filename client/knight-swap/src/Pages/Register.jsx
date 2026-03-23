@@ -26,7 +26,6 @@ export default function Register() {
                 body: JSON.stringify(newUserData)
             });
 
-            // Check if the server says the creation was successful
             if (response.ok === true) {
                 alert("Account created! You can now log in.");
                 
