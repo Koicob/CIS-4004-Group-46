@@ -1,32 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Homepage from './pages/Homepage';
-import Users from './pages/Users';
-import Admin from './pages/Admin';
-import Buyer from './pages/Buyer';
-import Seller from './pages/Seller';
+import Login from './pages/login';
+import Register from './pages/register';
+import Seller from './pages/seller';
+import Admin from './pages/admin';
+import Buyer from './pages/buyer'; 
+import Homepage from './pages/homepage'; 
 
-function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div className="app-container">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<Homepage />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/buyer" element={<Buyer />} />
-            <Route path="/seller" element={<Seller />} />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
-  );
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <div>
+                <h1>Knight Swap Marketplace</h1>
+                <hr />
+                
+                {/* The Routes control which component shows up based on the URL */}
+                <Routes>
+                    {/* The project requires the first screen to be the login page */}
+                    <Route path="/" element={<Login />} />
+                    
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/seller" element={<Seller />} />
+                    <Route path="/admin" element={<Admin />} />
+                    
+                    {/* <Route path="/buyer" element={<Buyer />} /> */}
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 }
-
-export default App;
