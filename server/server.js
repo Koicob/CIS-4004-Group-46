@@ -62,6 +62,29 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 
 
+
+app.post("/login", async (req, res) => {
+    try {
+        let loginUsername = req.body.username;
+        let loginPassword = req.body.password;
+        const foundUser = await User.findOne({ 
+            username: loginUsername, 
+            password: loginPassword 
+        });
+        
+     
+        if (foundUser !== null) {
+            res.json({ message: "Login successful", user: foundUser });
+        } else {
+
+            res.status(401).send("Invalid credentials");
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error during login");
+    }
+});
+
 app.post("/items", async (req, res) => {
     try {
         const newItem = new Item(req.body)
