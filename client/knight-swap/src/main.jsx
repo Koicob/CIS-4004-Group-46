@@ -9,6 +9,14 @@ import Offers from './offers.jsx'
 
 let theRoot = createRoot(document.getElementById('root'));
 
+export function LoginPage() {
+  theRoot.render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+}
+
 export function HomePage() {
 theRoot.render(
   <StrictMode>
@@ -53,4 +61,4 @@ theRoot.render(
 )
 }
 
-HomePage();
+LoginPage();

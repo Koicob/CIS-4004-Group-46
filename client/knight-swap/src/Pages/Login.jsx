@@ -1,4 +1,6 @@
+import "./Login.css";
 import { useEffect, useState } from "react";
+import logo from "../assets/logo.png";
 
 function Login() {
   const slides = [
@@ -33,7 +35,7 @@ function Login() {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
 
   const [loginEmail, setLoginEmail] = useState("");
@@ -53,11 +55,17 @@ function Login() {
   }, [slides.length]);
 
   function openLoginModal() {
+    setLoginEmail("");
+    setLoginPassword("");
     setModalType("login");
     setShowModal(true);
   }
 
   function openSignupModal() {
+    setRegisterEmail("");
+    setRegisterUsername("");
+    setRegisterPassword("");
+    setConfirmPassword("");
     setModalType("signup");
     setShowModal(true);
   }
@@ -78,48 +86,76 @@ function Login() {
     );
   }
 
+  function closeModal() {
+    setShowModal(false);
+
+    setLoginEmail("");
+    setLoginPassword("");
+
+    setRegisterEmail("");
+    setRegisterUsername("");
+    setRegisterPassword("");
+    setConfirmPassword("");
+  }  
+
   return (
     <div
-      className="landing-page"
+      className="ks-login-page"
       style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
     >
-      <div className="overlay">
-        <nav className="top-nav">
-          <div className="logo">Knight Swap</div>
+      <div className="ks-login-overlay">
+        <nav className="ks-login-top-nav">
+          <div className="ks-login-logo">
+            <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
+            <span>Knight Swap</span>
+          </div>
 
-          <div className="nav-links">
+          <div className="ks-login-nav-links">
             <a href="#">About</a>
             <a href="#">Browse</a>
-            <button className="nav-login" onClick={openLoginModal}>
+            <button className="ks-login-nav-login" onClick={openLoginModal}>
               Log In
             </button>
-            <button className="nav-signup" onClick={openSignupModal}>
+            <button className="ks-login-nav-signup" onClick={openSignupModal}>
               Sign Up
             </button>
           </div>
         </nav>
 
-        <section className="hero-section">
-          <div className="hero-text">
+        <section className="ks-login-hero-section">
+          <div className="ks-login-hero-text">
             <h1>{slides[currentSlide].title}</h1>
-            <h1 className={slides[currentSlide].accent === "gold" ? "highlight-gold" : "highlight-white"}>
+            <h1
+              className={
+                slides[currentSlide].accent === "gold"
+                  ? "ks-login-highlight-gold"
+                  : "ks-login-highlight-white"
+              }
+            >
               {slides[currentSlide].highlight}
             </h1>
 
-            <div className="dots">
+            <div className="ks-login-dots">
               {slides.map((slide, index) => (
                 <span
                   key={index}
-                  className={index === currentSlide ? "dot active-dot" : "dot"}
+                  className={
+                    index === currentSlide
+                      ? "ks-login-dot ks-login-active-dot"
+                      : "ks-login-dot"
+                  }
                 ></span>
               ))}
             </div>
 
-            <div className="hero-buttons">
-              <button className="hero-signup" onClick={openSignupModal}>
+            <div className="ks-login-hero-buttons">
+              <button className="ks-login-hero-signup" onClick={openSignupModal}>
                 Join Knight Swap
               </button>
-              <button className="hero-login-link" onClick={openLoginModal}>
+              <button
+                className="ks-login-hero-login-link"
+                onClick={openLoginModal}
+              >
                 I already have an account
               </button>
             </div>
@@ -127,16 +163,19 @@ function Login() {
         </section>
 
         {showModal && (
-          <div className="modal-wrapper">
-            <div className="modal-card">
-              <button className="close-button" onClick={() => setShowModal(false)}>
+          <div className="ks-login-modal-wrapper">
+            <div className="ks-login-modal-card">
+              <button
+                className="ks-login-close-button"
+                onClick={closeModal}
+              >
                 ×
               </button>
 
               {modalType === "login" ? (
                 <>
                   <h2>Welcome to Knight Swap</h2>
-                  <p className="modal-subtitle">
+                  <p className="ks-login-modal-subtitle">
                     Buy, sell, and discover items across UCF
                   </p>
 
@@ -161,12 +200,12 @@ function Login() {
                       required
                     />
 
-                    <button type="submit" className="main-button">
+                    <button type="submit" className="ks-login-main-button">
                       Log In
                     </button>
                   </form>
 
-                  <p className="switch-text">
+                  <p className="ks-login-switch-text">
                     Don’t have an account?{" "}
                     <span onClick={openSignupModal}>Sign up</span>
                   </p>
@@ -174,7 +213,7 @@ function Login() {
               ) : (
                 <>
                   <h2>Join Knight Swap</h2>
-                  <p className="modal-subtitle">
+                  <p className="ks-login-modal-subtitle">
                     Create an account to start buying and selling on campus
                   </p>
 
@@ -219,12 +258,12 @@ function Login() {
                       required
                     />
 
-                    <button type="submit" className="main-button">
+                    <button type="submit" className="ks-login-main-button">
                       Create Account
                     </button>
                   </form>
 
-                  <p className="switch-text">
+                  <p className="ks-login-switch-text">
                     Already have an account?{" "}
                     <span onClick={openLoginModal}>Log in</span>
                   </p>
