@@ -38,7 +38,7 @@ function Login() {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
 
-  const [loginEmail, setLoginEmail] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
   const [registerEmail, setRegisterEmail] = useState("");
@@ -55,7 +55,7 @@ function Login() {
   }, [slides.length]);
 
   function openLoginModal() {
-    setLoginEmail("");
+    setLoginUsername("");
     setLoginPassword("");
     setModalType("login");
     setShowModal(true);
@@ -72,7 +72,7 @@ function Login() {
 
   function handleLoginSubmit(event) {
     event.preventDefault();
-    console.log("Login submitted:", loginEmail, loginPassword);
+    console.log("Login submitted:", loginUsername, loginPassword);
   }
 
   function handleRegisterSubmit(event) {
@@ -89,7 +89,7 @@ function Login() {
   function closeModal() {
     setShowModal(false);
 
-    setLoginEmail("");
+    setLoginUsername("");
     setLoginPassword("");
 
     setRegisterEmail("");
@@ -180,13 +180,13 @@ function Login() {
                   </p>
 
                   <form onSubmit={handleLoginSubmit}>
-                    <label htmlFor="loginEmail">UCF Email</label>
+                    <label htmlFor="loginUsername">Username</label>
                     <input
-                      id="loginEmail"
-                      type="email"
-                      placeholder="example@ucf.edu"
-                      value={loginEmail}
-                      onChange={(event) => setLoginEmail(event.target.value)}
+                      id="loginUsername"
+                      type="username"
+                      placeholder="Enter your username"
+                      value={loginUsername}
+                      onChange={(event) => setLoginUsername(event.target.value)}
                       required
                     />
 
