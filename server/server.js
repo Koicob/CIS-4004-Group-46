@@ -40,7 +40,7 @@ app.post("/users", async (req, res) => {
         await newUser.save()
         res.json({ message: "User created successfully" })
         //Potentially store user ID in local storage for creation management (not secure, just for demo purposes)
-        localStorage.setItem("userId", data._id);
+        //localStorage.setItem("userId", data._id);
     } catch (error) {
         console.log(error)
         res.status(500).send("Error creating user")
@@ -70,11 +70,37 @@ app.post("/login", async (req, res) => {
         if (foundUser !== null) {
             res.json({ message: "Login successful", user: foundUser });
         } else {
-            res.status(401).send("Invalid credentials");
+            res.status(401).json({ message: "Invalid credentials" });
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error during login");
+        res.status(500).json({ message: "Error during login" });
+    }
+});
+
+app.post("/register", async (req, res) => {
+    try {
+        const { email,username, password } = req.body;
+
+        const existingUser = await User.findOne({ username: username });
+
+        if (existingUser) {
+            return res.status(400).json({ message: "Username already exists" });
+        }
+
+        const newUser = new User({
+            email,
+            username,
+            password,
+            role: "user"
+        });
+
+        await newUser.save();
+
+        res.json({ message: "User created successfully", user: newUser });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error creating user" });
     }
 });
 

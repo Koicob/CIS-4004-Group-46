@@ -70,20 +70,72 @@ function Login() {
     setShowModal(true);
   }
 
-  function handleLoginSubmit(event) {
+  async function handleLoginSubmit(event) {
     event.preventDefault();
-    console.log("Login submitted:", loginUsername, loginPassword);
+    //console.log("Login submitted:", loginUsername, loginPassword);
+
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: loginUsername,
+          password: loginPassword
+        })
+      });
+    
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("savedUser", JSON.stringify(data.user));
+        alert("Login successful");
+        closeModal();
+      } else {
+        alert(data.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error during login");
+    } 
   }
 
-  function handleRegisterSubmit(event) {
+  async function handleRegisterSubmit(event) {
     event.preventDefault();
-    console.log(
-      "Register submitted:",
-      registerEmail,
-      registerUsername,
-      registerPassword,
-      confirmPassword
-    );
+    if (registerPassword !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    
+    try {
+      const response = await fetch("http://localhost:8080/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: registerEmail,
+          username: registerUsername,
+          password: registerPassword
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Account created successfully");
+
+        setRegisterEmail("");
+        setRegisterUsername("");
+        setRegisterPassword("");
+        setConfirmPassword("");
+
+        setModalType("login");
+        setShowModal(true);
+      } else {
+        alert(data.message || "Error creating account");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error creating account");
+    }
   }
 
   function closeModal() {
@@ -183,7 +235,7 @@ function Login() {
                     <label htmlFor="loginUsername">Username</label>
                     <input
                       id="loginUsername"
-                      type="username"
+                      type="text"
                       placeholder="Enter your username"
                       value={loginUsername}
                       onChange={(event) => setLoginUsername(event.target.value)}
