@@ -38,7 +38,7 @@ const AboutUs = () => {
             </p>
             <p>
               We're here to help you save money, reduce waste, and build connections within the 
-              Knight Nation family.
+              Knight's community.
             </p>
           </div>
           
