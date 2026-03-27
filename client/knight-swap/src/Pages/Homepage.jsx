@@ -1,5 +1,4 @@
 import "./Homepage.css";
-import Navbar from "../Components/Navbar";
 
 import textbooksImg from "../assets/textbooks.jpg";
 import furnitureImg from "../assets/furniture.jpeg";
@@ -75,7 +74,6 @@ function Homepage() {
 
   return (
     <div className="ks-home-page">
-      <Navbar username={formattedUsername} onLogout={handleLogout}/>
 
       <section className="ks-home-hero">
         <h1>Welcome back, {formattedUsername}!</h1>

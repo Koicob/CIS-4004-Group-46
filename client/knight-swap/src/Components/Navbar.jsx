@@ -30,7 +30,7 @@ function Navbar({ username }) {
           className={location.pathname === "/add-item" ? "ks-home-nav-active" : ""}
           onClick={() => navigate("/add-item")}
         >
-          ADD ITEM
+          SELL
         </span>
 
         <span
@@ -46,8 +46,6 @@ function Navbar({ username }) {
         >
           POSTS
         </span>
-
-        <span className="ks-home-user">Hi, {username}</span>
 
         <button className="ks-home-logout-btn" onClick={handleLogout}>
           Log Out
