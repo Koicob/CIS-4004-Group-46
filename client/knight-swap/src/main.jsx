@@ -12,7 +12,6 @@ let theRoot = createRoot(document.getElementById('root'));
 export function LoginPage() {
   theRoot.render(
     <StrictMode>
-      <Menu />
       <App />
     </StrictMode>
   );

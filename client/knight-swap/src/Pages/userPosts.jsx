@@ -138,7 +138,7 @@ export default function UserPosts() {
 
     return (
         <>
-            <div id="title"> <p className="h2">User's Posts</p> </div>
+            <div id="title"> <p className="h2">USER'S POSTS</p> </div>
 
             <div className="post-container" >
                     {userPosts.map((post) => (
@@ -156,15 +156,15 @@ export default function UserPosts() {
                                             <div id="posts-info" className="form-control rounded border">
                                                 <div className="m-4">
                                                     {/* Title, Desc, Price */}
-                                                    <label>Title:</label>
+                                                    <label>TITLE:</label>
                                                     <input name="title" className="form-control" value={Data.title} onChange={(e) => setData({...Data, title: e.target.value})} />
-                                                    <label>Description:</label>
+                                                    <label>DESCRIPTION:</label>
                                                     <textarea name="description" className="form-control" value={Data.description} onChange={(e) => setData({...Data, description: e.target.value})}></textarea>
-                                                    <label>Price:</label>
+                                                    <label>PRICE:</label>
                                                     <div id="price-input"><input type="number" className="form-control"value={Data.price} onChange={(e) => setData({...Data, price: e.target.value})} /></div>
                                                     {/* Tags */}
                                                     <div className="col m-2">
-                                                        <label>Tags:</label>
+                                                        <label>TAGS:</label>
                                                         <div id="tag">
                                                             {tags.map(tag => (
                                                                 <button id="tags"
@@ -180,7 +180,7 @@ export default function UserPosts() {
                                                         </div>
                                                     </div>
                                                     {/* Locations */}
-                                                    <label>Location:</label>
+                                                    <label>LOCATION:</label>
                                                     <select className="form-control" value={Data.location._id} onChange={(e) => setData({ ...Data, location: e.target.value })} name="location">
                                                         <option value="">Select a location</option>
                                                         {locations.map((loc) => (
@@ -190,7 +190,7 @@ export default function UserPosts() {
                                                         ))}
                                                     </select>
                                                     {/* Pickup Time */}
-                                                    <label>Pickup Time:</label>
+                                                    <label>PICKUP TIME:</label>
                                                     <input className="form-control" name="pickupTime" value={Data.pickupTime} onChange={(e) => setData({...Data, pickupTime: e.target.value})} />
                                                     
                                                     
@@ -198,8 +198,8 @@ export default function UserPosts() {
                                             </div>
                                             {/* Save and Cancel Buttons */}
                                             <div id="posts-buttons" className="d-flex flex-column">
-                                                <button id='save'className="m-4" onClick={() => Save(post._id)}>Save</button>
-                                                <button id='cancel'className="m-4" onClick={() => setEditingPost(null)}>Cancel</button>
+                                                <button id='save'className="m-4" onClick={() => Save(post._id)}>SAVE</button>
+                                                <button id='cancel'className="m-4" onClick={() => setEditingPost(null)}>CANCEL</button>
                                             </div>
                                         </>
                                         ) : (
@@ -215,22 +215,22 @@ export default function UserPosts() {
                                                 <div className="m-4">
                                                     
                                                     <h3 id="title">{post.title}</h3>
-                                                    <label>Description:</label>
+                                                    <label>DESCRIPTION:</label>
                                                     <p>{post.description}</p>
-                                                    <label>Price:</label>
+                                                    <label>PRICE:</label>
                                                     <p>${post.price}</p>
-                                                    <label>Tags:</label>
+                                                    <label>TAGS:</label>
                                                     <p>{post.tags.map(tag => tag.name).join(", ")}</p>
-                                                    <label>Location:</label>
+                                                    <label>LOCATION:</label>
                                                     <p>{post.location.name}</p>
-                                                    <label>Pickup Time:</label>
+                                                    <label>PICKUP TIME:</label>
                                                     <p>{post.pickupTime}</p>
                                                 </div>
                                             </div>
                                             {/* Edit and Delete Buttons */}
                                             <div id="posts-buttons" className="d-flex flex-column">
-                                                <button id='edit'className="m-4" onClick={() => EditPost(post)}>Edit</button>
-                                                <button id='delete'className="m-4" onClick={() => DeletePost(post._id)}>Delete</button>
+                                                <button id='edit'className="m-4" onClick={() => EditPost(post)}>EDIT</button>
+                                                <button id='delete'className="m-4" onClick={() => DeletePost(post._id)}>DELETE</button>
                                             </div> 
                                         </>
                                     )}

@@ -100,7 +100,7 @@ export default function AddItem() {
     return (
         <>
             <div id="title">
-            <p className="h2">Create a Post</p>
+            <p className="h2">CREATE A POST</p>
             </div>
 
             <div className="container">
@@ -169,7 +169,7 @@ export default function AddItem() {
                         <div className="col m-4">
                             <label className="form-label">PICKUP TIME:</label>
                             <br></br>
-                            <label id="reference">*Please use the following format: DOW/DOW - HH:MM-HH:MM*</label>
+                            <label id="reference">*PLEASE USE THE FOLLOWING FORMAT: DOW/DOW - HH:MM-HH:MM*</label>
                             <input id="info-insert" type="text" className="form-control" style={{height: '50px'}}
                             value={pickupTime} onChange={(e) => setPickupTime(e.target.value)}/>
 

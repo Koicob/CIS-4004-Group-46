@@ -25,8 +25,7 @@ p.h2 {
   font-size: 1.8rem;
   font-weight: 700;
   color: #2a2a2a;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
   border-bottom: 2px solid #f5c518;
   padding-bottom: 0.4em;
 }
@@ -35,8 +34,7 @@ label {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: #000;
   background: #f5c518;
   padding: 2px 8px;
@@ -84,8 +82,7 @@ button {
   padding: 0.5em 1.2em;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
   background: transparent;
   color:  #f0f0f0;
   cursor: pointer;
@@ -150,6 +147,7 @@ button:hover {
   font-size: 0.78rem;
   color: #888;
   border-color: #2a2a2a;
+  text-transform: uppercase;
 }
 
 #tags:hover,
