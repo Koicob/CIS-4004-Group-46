@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from "react";
 import { useEffect } from "react";
-import defaultImage from "./assets/loadImage.png";
+import { jwtDecode } from 'jwt-decode';
+import defaultImage from "../assets/loadImage.png";
+import "./add-view.css";
 
 export default function AddItem() {
     const [title, setTitle] = useState("");
@@ -37,9 +39,8 @@ export default function AddItem() {
         fetchLocations();
     }, []);
 
-    // Temp ---> Before Logins/Users are Created
-    const sellerId = 123;
-    //const sellerId = localStorage.getItem("userId");
+    // User Object ID
+    const { id: sellerId } = jwtDecode(localStorage.getItem('token'));
 
     // Image Configuration 
     async function imageHandle(event) {
@@ -99,17 +100,17 @@ export default function AddItem() {
     return (
         <>
             <div id="title">
-            <p className="h2">Create an Item Post</p>
+            <p className="h2">Create a Post</p>
             </div>
 
             <div className="container">
                 <div className="row">
                     {/* Image upload and preview */}
                     <div className="col-lg-4 bg-dark rounded">
-                        <div className="col m-4" >
-                            <img src={imagePreview} className='form-control rounded border'></img>
+                        <div  id="image-insert">
+                            <img src={imagePreview}></img>
                         </div>
-                        <div id="image-insert" className="col m-4"><input type="file" accept="image/*" onChange={imageHandle}/></div>
+                        <div id="image-insert" className="col m-2"><input type="file" accept="image/*" onChange={imageHandle}/></div>
                     </div>
 
                     <div className="col-lg-7 rounded">

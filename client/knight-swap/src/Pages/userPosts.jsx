@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState} from "react";
+import { jwtDecode } from 'jwt-decode';
+import "./add-view.css";
 
 export default function UserPosts() {
 
-    //const sellerId = localStorage.getItem("userId");
-    //Temp ---> Before Logins/Users are Created
-    const sellerId = 123;
+    // User Object ID
+    const { id: sellerId } = jwtDecode(localStorage.getItem('token'));
 
     const [userPosts, setUserPosts] = useState([]);
     const [editingPost, setEditingPost] = useState(null);
@@ -95,14 +96,24 @@ export default function UserPosts() {
 
     // Delete User's Post
    async function DeletePost(id) {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+
         await fetch(`http://localhost:8080/items/${id}`, {
             method: "DELETE"
         });
         setUserPosts(userPosts.filter(post => post._id !== id));
+
+        alert("Item deleted successfully!");
     }
 
     // Save User's Edit
     async function Save(id) {
+        if (!Data.title || !Data.description || !Data.price || !Data.pickupTime || !Data.location || tagsSelected.size === 0) {
+            alert("Warning! Please fill out all fields before submitting.");
+            return;
+        }
+
         const data = {
             title: Data.title,
             description: Data.description,

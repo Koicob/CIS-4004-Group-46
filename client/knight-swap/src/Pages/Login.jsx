@@ -88,6 +88,7 @@ function Login() {
 
       if (response.ok) {
         localStorage.setItem("savedUser", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
         alert("Login successful");
         closeModal();
       } else {

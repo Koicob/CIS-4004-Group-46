@@ -2,16 +2,17 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App.jsx'
-import Menu from './menu.jsx'
-import UserPosts from './userPosts.jsx'
-import AddItem from './addItem.jsx'
-import Offers from './offers.jsx'
+import Menu from './Pages/menu.jsx'
+import UserPosts from './Pages/userPosts.jsx'
+import AddItem from './Pages/addItem.jsx'
+import Offers from './Pages/offers.jsx'
 
 let theRoot = createRoot(document.getElementById('root'));
 
 export function LoginPage() {
   theRoot.render(
     <StrictMode>
+      <Menu />
       <App />
     </StrictMode>
   );

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from "react";
-import { AddItemPage, UserPostsPage, HomePage, OffersPage } from './main';
+import { AddItemPage, UserPostsPage, HomePage, OffersPage } from '../main';
+import "./add-view.css";
 
 export default function Menu() {
     const [activePage, setActivePage] = useState("HOME");

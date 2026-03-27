@@ -11,6 +11,8 @@ const Location = require("./models/location")
 const multer = require("multer");
 const path = require("path");
 
+const jwt = require('jsonwebtoken');
+
 const app = express()
 const PORT = 8080
 
@@ -39,8 +41,6 @@ app.post("/users", async (req, res) => {
         const newUser = new User(req.body)
         await newUser.save()
         res.json({ message: "User created successfully" })
-        //Potentially store user ID in local storage for creation management (not secure, just for demo purposes)
-        //localStorage.setItem("userId", data._id);
     } catch (error) {
         console.log(error)
         res.status(500).send("Error creating user")
@@ -68,7 +68,8 @@ app.post("/login", async (req, res) => {
         });
         
         if (foundUser !== null) {
-            res.json({ message: "Login successful", user: foundUser });
+            const token = jwt.sign({ id: foundUser._id }, "KNIGHT-SWAP", { expiresIn: '1d' });
+            res.json({ message: "Login successful", user: foundUser, token });
         } else {
             res.status(401).json({ message: "Invalid credentials" });
         }
@@ -122,7 +123,8 @@ app.post("/items", async (req, res) => {
 
 app.get("/items", async (req, res) => {
     try {
-        const items = await Item.find().populate("location").populate("tags")
+        const filter = req.query.sellerId ? { sellerId: req.query.sellerId } : {};
+        const items = await Item.find(filter).populate("location").populate("tags")
         res.json(items)
     } catch (error) {
         console.log(error)
