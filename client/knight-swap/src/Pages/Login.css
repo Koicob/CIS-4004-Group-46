@@ -5,9 +5,27 @@ body {
 
 .ks-login-page {
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.ks-login-bg,
+.ks-login-bg-fade {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  transition: background-image 0.8s ease-in-out;
+  background-repeat: no-repeat;
+}
+
+.ks-login-bg {
+  z-index: 0;
+}
+
+.ks-login-bg-fade {
+  z-index: 1;
+  opacity: 0;
+  animation: ksCrossfade 2s ease-in-out forwards;
 }
 
 .ks-login-overlay {
@@ -18,6 +36,16 @@ body {
     rgba(0, 0, 0, 0.2)
   );
   position: relative;
+  z-index: 2;
+}
+
+@keyframes ksCrossfade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .ks-login-top-nav {
@@ -129,20 +157,25 @@ body {
   margin: 0;
   font-size: 72px;
   line-height: 0.98;
-  color: white;
   letter-spacing: -1.2px;
   font-family: 'Arial', sans-serif;
   font-weight: 700;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
 }
 
-.ks-login-highlight-gold {
+.ks-login-hero-text h1 {
+  color: white;
+}
+
+.ks-login-hero-text .ks-login-highlight-gold {
   color: #FFC904;
 }
 
-.ks-login-highlight-white {
-  color: #ffffff;
+/* may or may not use
+.ks-login-hero-text .ks-login-highlight-white {
+  color: white;
 }
+*/
 
 .ks-login-dots {
   display: flex;

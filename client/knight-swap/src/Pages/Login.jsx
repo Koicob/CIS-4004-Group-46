@@ -1,6 +1,7 @@
 import "./Login.css";
 import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
+import dormImg from "../assets/dorm.jpg";
 
 function Login() {
   const slides = [
@@ -14,7 +15,7 @@ function Login() {
     {
       title: "Find deals on",
       highlight: "campus tech",
-      accent: "white",
+      accent: "gold",
       image:
         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
     },
@@ -22,19 +23,19 @@ function Login() {
       title: "Find deals on",
       highlight: "dorm essentials",
       accent: "gold",
-      image:
-        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+      image: dormImg
     },
     {
       title: "Find deals on",
       highlight: "student style",
-      accent: "white",
+      accent: "gold",
       image:
         "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80"
     }
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("login");
 
@@ -48,11 +49,12 @@ function Login() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setPreviousSlide(currentSlide);
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3500);
+    }, 6000);
 
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [currentSlide,slides.length]);
 
   function openLoginModal() {
     setLoginUsername("");
@@ -91,6 +93,10 @@ function Login() {
         localStorage.setItem("token", data.token);
         alert("Login successful");
         closeModal();
+
+        // once logged in, redirect to homepage
+        window.location.href = "/homepage";
+        
       } else {
         alert(data.message || "Invalid credentials");
       }
@@ -152,10 +158,18 @@ function Login() {
   }  
 
   return (
-    <div
-      className="ks-login-page"
-      style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
-    >
+    <div className="ks-login-page">
+      <div
+        className="ks-login-bg"
+        style={{ backgroundImage: `url(${slides[previousSlide].image})` }}
+      ></div>
+        
+      <div
+        key={currentSlide}
+        className="ks-login-bg-fade"
+        style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
+      ></div>
+
       <div className="ks-login-overlay">
         <nav className="ks-login-top-nav">
           <div className="ks-login-logo">
