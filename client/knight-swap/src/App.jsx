@@ -6,6 +6,7 @@ import Homepage from "./Pages/Homepage";
 import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
 import UserPosts from "./Pages/userPosts";
+import Admin from './pages/Admin';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/add-item" element={<AddItem />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/posts" element={<UserPosts />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

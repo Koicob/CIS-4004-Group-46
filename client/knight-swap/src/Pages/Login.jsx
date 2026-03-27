@@ -74,7 +74,6 @@ function Login() {
 
   async function handleLoginSubmit(event) {
     event.preventDefault();
-    //console.log("Login submitted:", loginUsername, loginPassword);
 
     try {
       const response = await fetch("http://localhost:8080/login", {
@@ -94,8 +93,11 @@ function Login() {
         alert("Login successful");
         closeModal();
 
-        // once logged in, redirect to homepage
-        window.location.href = "/homepage";
+        if (data.user.role === "admin") {
+            window.location.href = "/admin"; 
+        } else {
+            window.location.href = "/homepage"; 
+        }
         
       } else {
         alert(data.message || "Invalid credentials");

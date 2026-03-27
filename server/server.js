@@ -57,6 +57,16 @@ app.get("/users", async (req, res) => {
     }
 })
 
+app.put("/users/:id", async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' })
+        res.json(updatedUser)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Error updating user")
+    }
+})
+
 app.post("/login", async (req, res) => {
     try {
         let loginUsername = req.body.username;
@@ -202,6 +212,17 @@ app.get("/locations", async (req, res) => {
         res.status(500).send("Error retrieving locations")
     }
 })
+
+app.post("/locations", async (req, res) => {
+    try {
+        const newLocation = new Location(req.body);
+        await newLocation.save();
+        res.json({ message: "Location created successfully", location: newLocation });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error creating location");
+    }
+});
 
 app.get("/seedData", async (req, res) => {
     try {
