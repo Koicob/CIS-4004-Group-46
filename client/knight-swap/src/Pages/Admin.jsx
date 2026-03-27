@@ -12,7 +12,6 @@ export default function Admin() {
     const [allMarketItems, setAllMarketItems] = useState([]);
     const [allRegisteredUsers, setAllRegisteredUsers] = useState([]);
     
-    // --- NEW STATE FOR CREATING LOCATIONS ---
     const [newLocationName, setNewLocationName] = useState("");
 
     useEffect(() => {
