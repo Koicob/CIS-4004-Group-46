@@ -27,6 +27,12 @@ function Navbar({ username }) {
         </span>
 
         <span
+          classname={location.pathname === "/shop" ? "ks-home-nav-active" : ""  }
+        > 
+          SHOP 
+        </span>
+
+        <span
           className={location.pathname === "/add-item" ? "ks-home-nav-active" : ""}
           onClick={() => navigate("/add-item")}
         >
