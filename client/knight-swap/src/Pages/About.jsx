@@ -176,7 +176,7 @@ const About = () => {
           Start saving money and connecting with fellow Knights today. Your next great deal is just 
           a click away.
         </p>
-        <Link to="/signup" className="cta-button">Get Started Now</Link>
+        <Link to="/signup" className="cta-button">Join Knight Swap</Link>
       </section>
 
       {/* Footer */}
