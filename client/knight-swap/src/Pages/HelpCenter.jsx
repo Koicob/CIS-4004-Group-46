@@ -1,8 +1,8 @@
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../assets/logo.png";
-import '../CSS/Login.css';
-import React, { useState, useRef, useEffect } from 'react';
 import '../CSS/HelpCenter.css';
+import '../CSS/Login.css';
 
 const faqs = [
   {
@@ -111,6 +111,7 @@ const botResponses = [
 ];
 
 export default function HelpCenter() {
+  // FAQ & Chat state
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [chatOpen, setChatOpen] = useState(false);
@@ -121,11 +122,109 @@ export default function HelpCenter() {
   const [inputValue, setInputValue] = useState('');
   const chatMessagesRef = useRef(null);
 
+  // Modal state
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("login");
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   useEffect(() => {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
   }, [messages]);
+
+  function openLoginModal() {
+    setLoginUsername("");
+    setLoginPassword("");
+    setModalType("login");
+    setShowModal(true);
+  }
+
+  function openSignupModal() {
+    setRegisterEmail("");
+    setRegisterUsername("");
+    setRegisterPassword("");
+    setConfirmPassword("");
+    setModalType("signup");
+    setShowModal(true);
+  }
+
+  function closeModal() {
+    setShowModal(false);
+    setLoginUsername("");
+    setLoginPassword("");
+    setRegisterEmail("");
+    setRegisterUsername("");
+    setRegisterPassword("");
+    setConfirmPassword("");
+  }
+
+  async function handleLoginSubmit(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: loginUsername, password: loginPassword })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("savedUser", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+        alert("Login successful");
+        closeModal();
+        if (data.user.role === "admin") {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "/homepage";
+        }
+      } else {
+        alert(data.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error during login");
+    }
+  }
+
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
+    if (registerPassword !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:8080/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: registerEmail,
+          username: registerUsername,
+          password: registerPassword
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Account created successfully");
+        setRegisterEmail("");
+        setRegisterUsername("");
+        setRegisterPassword("");
+        setConfirmPassword("");
+        setModalType("login");
+        setShowModal(true);
+      } else {
+        alert(data.message || "Error creating account");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error creating account");
+    }
+  }
 
   function toggleFaq(index) {
     setActiveIndex(activeIndex === index ? null : index);
@@ -134,12 +233,10 @@ export default function HelpCenter() {
   function sendMessage(text) {
     const msgText = text || inputValue.trim();
     if (!msgText) return;
-
     const now = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
     setMessages(prev => [...prev, { text: msgText, isUser: true, time: now }]);
     setShowQuickReplies(false);
     setInputValue('');
-
     setTimeout(() => {
       const reply = botResponses[Math.floor(Math.random() * botResponses.length)];
       const replyTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -149,12 +246,25 @@ export default function HelpCenter() {
 
   const filteredFaqs = faqs.filter(faq => {
     if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return faq.question.toLowerCase().includes(q);
+    return faq.question.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   return (
     <>
+      {/* Nav Bar */}
+      <nav className="ks-login-top-nav" style={{ position: 'relative', padding: '18px 40px', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)' }}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
+          <span style={{ fontSize: '30px', fontWeight: '700' }}>Knight Swap</span>
+        </Link>
+        <div className="ks-login-nav-links">
+          <Link to="/about" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>About</Link>
+          <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
+          <button className="ks-login-nav-login" onClick={openLoginModal}>Log In</button>
+          <button className="ks-login-nav-signup" onClick={openSignupModal}>Sign Up</button>
+        </div>
+      </nav>
+
       <section className="help-center">
         {/* Header */}
         <div className="help-header">
@@ -297,7 +407,7 @@ export default function HelpCenter() {
               </div>
             </div>
             <button className="chat-minimize" onClick={() => setChatOpen(false)} aria-label="Minimize chat">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </button>
@@ -345,6 +455,95 @@ export default function HelpCenter() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="ks-login-modal-wrapper">
+          <div className="ks-login-modal-card">
+            <button className="ks-login-close-button" onClick={closeModal}>×</button>
+
+            {modalType === "login" ? (
+              <>
+                <h2>Welcome to Knight Swap</h2>
+                <p className="ks-login-modal-subtitle">Buy, sell, and discover items across UCF</p>
+                <form onSubmit={handleLoginSubmit}>
+                  <label htmlFor="loginUsername">Username</label>
+                  <input
+                    id="loginUsername"
+                    type="text"
+                    placeholder="Enter your username"
+                    value={loginUsername}
+                    onChange={(e) => setLoginUsername(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="loginPassword">Password</label>
+                  <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    required
+                  />
+                  <button type="submit" className="ks-login-main-button">Log In</button>
+                </form>
+                <p className="ks-login-switch-text">
+                  Don't have an account?{" "}
+                  <span onClick={openSignupModal}>Sign up</span>
+                </p>
+              </>
+            ) : (
+              <>
+                <h2>Join Knight Swap</h2>
+                <p className="ks-login-modal-subtitle">Create an account to start buying and selling on campus</p>
+                <form onSubmit={handleRegisterSubmit}>
+                  <label htmlFor="registerEmail">UCF Email</label>
+                  <input
+                    id="registerEmail"
+                    type="email"
+                    placeholder="example@ucf.edu"
+                    value={registerEmail}
+                    onChange={(e) => setRegisterEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="registerUsername">Username</label>
+                  <input
+                    id="registerUsername"
+                    type="text"
+                    placeholder="Choose a username"
+                    value={registerUsername}
+                    onChange={(e) => setRegisterUsername(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="registerPassword">Password</label>
+                  <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Create a password"
+                    value={registerPassword}
+                    onChange={(e) => setRegisterPassword(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Confirm your password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                  <button type="submit" className="ks-login-main-button">Create Account</button>
+                </form>
+                <p className="ks-login-switch-text">
+                  Already have an account?{" "}
+                  <span onClick={openLoginModal}>Log in</span>
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }
