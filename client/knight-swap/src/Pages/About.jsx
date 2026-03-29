@@ -9,7 +9,7 @@ const About = () => {
     <div className="about">
 
       {/* Nav Bar */}
-      <nav className="ks-login-top-nav" style={{ position: 'relative', padding: '18px 40px', width: '100%', boxSizing: 'border-box' }}>
+      <nav className="ks-login-top-nav" style={{ position: 'relative', padding: '18px 40px', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)' }}>
         <div className="ks-login-logo">
           <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
           <span>Knight Swap</span>
@@ -19,18 +19,8 @@ const About = () => {
           <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
           <Link to="/" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Sign In</Link>
           <Link to="/signup" className="ks-login-nav-signup">Sign Up</Link>
-        </div>
+       </div>
       </nav>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>About</h1>
-          <p className="hero-subtitle">
-            Knight Swap for the <span className="hero-accent">Knight Nation</span>
-          </p>
-        </div>
-      </section>
 
       {/* Mission Section */}
       <section className="mission" id="mission">
