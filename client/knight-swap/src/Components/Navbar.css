@@ -45,6 +45,17 @@
 
 .ks-home-nav-active {
   color: #ffc904;
+  position: relative;
+}
+
+.ks-home-nav-active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #ffc904;
 }
 
 .ks-home-user {
