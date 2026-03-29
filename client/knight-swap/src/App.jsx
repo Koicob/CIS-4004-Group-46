@@ -1,8 +1,10 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import Login from "./Pages/Login";
 import Homepage from "./Pages/Homepage";
+import AboutUs from './About';
 import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
 import UserPosts from "./Pages/userPosts";
