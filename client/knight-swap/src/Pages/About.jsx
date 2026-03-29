@@ -4,17 +4,23 @@ import '../CSS/About.css';
 import logo from "../assets/logo.png";
 
 const About= () => {
-  return (
-    <div className="about">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>About </h1>
-          <p className="hero-subtitle">
-            Knight Swap for the <span className="hero-accent">Knight Nation</span>
-          </p>
-        </div>
-      </section>
+return (
+  <div className="about">
+    {/* Nav Bar */}
+    <nav className="ks-login-top-nav" style={{ position: 'relative', background: '#000', padding: '18px 40px' }}>
+      <div className="ks-login-logo">
+        <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
+        <span>Knight Swap</span>
+      </div>
+      <div className="ks-login-nav-links">
+        <Link to="/about" className="ks-nav-link-btn" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>About</Link>
+        <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
+        <Link to="/" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Sign In</Link>
+        <Link to="/signup" className="ks-login-nav-signup">Sign Up</Link>
+      </div>
+    </nav>
+    
+    <section className="hero">
 
       {/* Mission Section */}
       <section className="mission" id="mission">
