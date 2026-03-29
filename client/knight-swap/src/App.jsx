@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Homepage from "./Pages/Homepage";
 import About from "./Pages/About";
+import Shop from "./Pages/Shop";
 import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
 import UserPosts from "./Pages/userPosts";
@@ -19,7 +20,8 @@ function App() {
         <Route path="/" element={ <Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/homepage" element={<><Menu /> <Homepage /></>} />
-        <Route path="/add-item" element={<><Menu /> <AddItem /></>} />
+        <Route path="/shop" element={<><Menu /> <Shop /></>} />
+        <Route path="/sell" element={<><Menu /> <AddItem /></>} />
         <Route path="/offers" element={<><Menu /> <Offers /></>} />
         <Route path="/posts" element={<><Menu /> <UserPosts /></>} />
         <Route path="/admin" element={<><Menu /> <Admin /></>} />

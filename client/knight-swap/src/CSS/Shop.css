@@ -1,0 +1,255 @@
+/* basic page */
+.ks-shop-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* top section */
+.ks-shop-header {
+  padding: 42px 42px 20px;
+}
+
+.ks-shop-header h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 700;
+}
+
+.ks-shop-header p {
+  margin-top: 10px;
+  color: #555;
+  font-size: 18px;
+}
+
+/* main layout */
+.ks-shop-content {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  padding: 0 42px 42px;
+}
+
+/* left side */
+.ks-shop-sidebar h3 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 10px;
+}
+
+.ks-shop-tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ks-shop-tag-btn {
+  text-align: left;
+  border: 1px solid #e2e2e2;
+  background: white;
+  color: #111;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ks-shop-tag-btn:hover {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
+
+.ks-shop-tag-btn.active {
+  background: #ffc904;
+  color: #111;
+  border-color: #ffc904;
+}
+
+/* right side top */
+.ks-shop-main {
+  min-width: 0;
+}
+
+.ks-shop-results-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 14px;
+}
+
+.ks-shop-results-text h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.ks-shop-results-text p {
+  margin: 8px 0 0;
+  color: #555;
+  font-size: 16px;
+}
+
+/* search bar */
+.ks-shop-search {
+  width: 320px;
+  max-width: 100%;
+  padding: 13px 16px;
+  border-radius: 999px;
+  border: 1px solid #d9d9d9;
+  background: white;
+  color: #111;
+  font-size: 14px;
+}
+
+.ks-shop-search:focus {
+  outline: none;
+  border-color: #ffc904;
+}
+
+/* items grid */
+.ks-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* item card */
+.ks-shop-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.ks-shop-card:hover {
+  transform: translateY(-5px);
+  border-color: #ffc904;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.ks-shop-card-image-wrap {
+  background: white;
+  padding: 18px;
+  border-bottom: 1px solid #efefef;
+}
+
+.ks-shop-card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.ks-shop-card-info {
+  padding: 18px;
+}
+
+.ks-shop-card-info h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+}
+
+.ks-shop-card-price {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+}
+
+.ks-shop-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ks-shop-card-tag {
+  background: #fff4c2;
+  color: #111;
+  border: 1px solid #f0d96f;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ks-shop-card-location {
+  margin: 0 0 14px;
+  color: #555;
+  font-size: 15px;
+}
+
+.ks-shop-card-btn {
+  width: 100%;
+  border: none;
+  background: #ffc904;
+  color: #111;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ks-shop-card-btn:hover {
+  background: #111;
+  color: white;
+}
+
+/* tablet */
+@media (max-width: 1100px) {
+  .ks-shop-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ks-shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ks-shop-header,
+  .ks-shop-content {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .ks-shop-header h1 {
+    font-size: 44px;
+  }
+
+  .ks-shop-results-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ks-shop-search {
+    width: 100%;
+  }
+}
+
+/* mobile */
+@media (max-width: 700px) {
+  .ks-shop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ks-shop-header h1 {
+    font-size: 34px;
+  }
+
+  .ks-shop-card-image {
+    height: 180px;
+  }
+}

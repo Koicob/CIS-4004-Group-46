@@ -230,6 +230,16 @@ body {
   color: #f2f2f2;
 }
 
+.ks-home-link-text {
+  text-decoration: none;   /* removes underline from shop all text */
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ks-home-link-text:hover {
+  text-decoration: underline; /* underline only on hover */
+}
+
 /* featured items grid */
 .ks-home-item-grid {
   display: grid;

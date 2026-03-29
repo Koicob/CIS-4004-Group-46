@@ -1,4 +1,5 @@
 import "../CSS/Homepage.css";
+import { Link } from "react-router-dom";
 
 import textbooksImg from "../assets/textbooks.jpg";
 import furnitureImg from "../assets/furniture.jpeg";
@@ -95,7 +96,9 @@ function Homepage() {
             <h2>Featured Categories</h2>
             <p>Browse your favorite categories in seconds.</p>
           </div>
-          <span className="ks-home-link-text">Shop All Categories →</span>
+          <Link to="/shop" className="ks-home-link-text">
+            Shop All Categories →
+          </Link>
         </div>
 
         <div className="ks-home-category-grid">
