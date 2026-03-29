@@ -56,6 +56,10 @@ function Login() {
     return () => clearInterval(interval);
   }, [currentSlide,slides.length]);
 
+
+  function goToAbout() {
+  window.location.href = "/about";
+  }
   function openLoginModal() {
     setLoginUsername("");
     setLoginPassword("");
@@ -180,7 +184,6 @@ function Login() {
           </div>
 
           <div className="ks-login-nav-links">
-            <a href="/about" className="ks-nav-link">About</a>
             <button className="ks-nav-link-btn" onClick={goToAbout}>
               About
             </button>
