@@ -169,9 +169,6 @@ const About= () => {
           <p className="footer-tagline">By Knights, For Knights</p>
           
           <div className="footer-links">
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
-            <Link to="/safety">Safety Guidelines</Link>
             <Link to="/contact">Contact Us</Link>
           </div>
           
