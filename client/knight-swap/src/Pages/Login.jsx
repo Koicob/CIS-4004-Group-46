@@ -180,7 +180,7 @@ function Login() {
           </div>
 
           <div className="ks-login-nav-links">
-            <a href="#">About</a>
+            <a href="/about" className="ks-nav-link">About</a>
             <a href="#">Browse</a>
             <button className="ks-login-nav-login" onClick={openLoginModal}>
               Log In
