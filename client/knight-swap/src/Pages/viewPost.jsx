@@ -55,7 +55,6 @@ export default function ViewPost() {
     return (
         <>
             {/* Display Item Post */}
-            <div>
                 <div id="post">
                     <div id="posts-image" className="rounded">
                         <div className="m-4">
@@ -80,28 +79,27 @@ export default function ViewPost() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <br></br>
+
             {/* Offer Submission Form */}
-            <div className="post">
-            <div id="title"> <p className="h2">MAKE AN OFFER:</p> </div>
-            <div className="col m-4">
-                <label className="item-label">INPUT BID PRICE:</label>
-                    <div id="price-input">
-                        <input id="info-insert" type="number" className="form-control" 
-                        value={bid} onChange={(e) => setBid(e.target.value)} />
+                <div id="postOffer">
+                    <div id="title"><h2 className="offer">MAKE AN OFFER:</h2></div>
+                    <div className="col m-4">
+                        <label className="item-label">INPUT BID PRICE:</label>
+                            <div id="price-input">
+                                <input id="info-insert" type="number" className="form-control" 
+                                value={bid} onChange={(e) => setBid(e.target.value)} />
+                            </div>
+                        <br></br>
+                        <label className="item-label">MESSAGE TO SELLER:</label>
+                        <br></br>
+                        <label id="reference">*PLEASE TELL SELLER SPECIFC DATE/TIME</label>
+                            <div id="description">
+                                <textarea id="info-insert" type="text" className="form-control" 
+                                value={message} onChange={(e) => setMessage(e.target.value)} />
+                            </div>
                     </div>
-                <br></br>
-                <label className="item-label">MESSAGE TO SELLER:</label>
-                <br></br>
-                <label id="referenceOffer">*PLEASE TELL SELLER SPECIFC DATE/TIME</label>
-                    <div id="description">
-                        <textarea id="info-insert" type="text" className="form-control" 
-                        value={message} onChange={(e) => setMessage(e.target.value)} />
-                    </div>
-            </div>
-            <div className="col m-4"><button className="submit-button" onClick={() => {handleSubmit()}}>SEND OFFER</button></div>
-            </div>
+                     <div className ="col m-4"><button className="submit-button" onClick={() => {handleSubmit()}}>SEND OFFER</button></div> 
+                </div>
         </>                                        
     )
 }

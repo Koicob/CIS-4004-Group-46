@@ -16,7 +16,11 @@ body {
   padding: 2rem 1rem 1rem;
 }
 
-p.h2, #titleOffer {
+h2.offer {
+  color: #f0f0f0;
+}
+
+h2 {
   font-size: 1.8rem;
   font-weight: 700;
   color: #2a2a2a;
@@ -186,14 +190,6 @@ input[type="file"]::file-selector-button {
   background: none;
 }
 
-#referenceOffer {
-  font-size: 0.75rem;
-  color:  #111;
-  font-weight: bold;
-  font-style: italic;
-  margin: 2px 0 6px;
-}
-
 .post-container {
   display: flex;
   flex-direction: column;
@@ -216,11 +212,17 @@ input[type="file"]::file-selector-button {
 
 #post {
   display: grid;
+  grid-template-columns: 400px 1fr auto;
   align-items: stretch;
   background: #1a1a1a;
   border: 1px solid #2a2a2a;
   overflow: hidden;
   position: relative;
+}
+
+#postOffer {
+  background: #0d0d0d;
+  overflow: hidden;
 }
 
 #posts::before {
