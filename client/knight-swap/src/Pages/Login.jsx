@@ -181,6 +181,9 @@ function Login() {
 
           <div className="ks-login-nav-links">
             <a href="/about" className="ks-nav-link">About</a>
+            <button className="ks-nav-link-btn" onClick={goToAbout}>
+              About
+            </button>
             <a href="#">Browse</a>
             <button className="ks-login-nav-login" onClick={openLoginModal}>
               Log In
