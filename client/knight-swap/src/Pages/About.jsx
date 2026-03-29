@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../CSS/About.css';
 
-const AboutUs = () => {
+const About= () => {
   return (
-    <div className="about-us">
+    <div className="about">
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1>About Us</h1>
+          <h1>About </h1>
           <p className="hero-subtitle">
             The Official Marketplace for <span className="hero-accent">Knight Nation</span>
           </p>
