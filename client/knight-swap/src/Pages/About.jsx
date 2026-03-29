@@ -10,10 +10,10 @@ const About = () => {
 
       {/* Nav Bar */}
       <nav className="ks-login-top-nav" style={{ position: 'relative', padding: '18px 40px', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)' }}>
-        <div className="ks-login-logo">
+        <Link to="/" style={{ textDecoration: 'none', color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
-          <span>Knight Swap</span>
-        </div>
+          <span style={{ fontSize: '30px', fontWeight: '700' }}>Knight Swap</span>
+        </Link>
         <div className="ks-login-nav-links">
           <Link to="/about" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>About</Link>
           <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
