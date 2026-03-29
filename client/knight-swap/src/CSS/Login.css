@@ -461,3 +461,50 @@ body {
     font-size: 16px;
   }
 }
+
+.ks-support-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFC904;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 999px;
+  padding: 10px 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+  overflow: hidden;
+  max-width: 44px;
+  z-index: 999;
+}
+
+.ks-support-fab:hover {
+  max-width: 160px;
+  padding: 10px 18px;
+}
+
+.ks-support-icon {
+  font-size: 20px;
+  font-weight: 900;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.ks-support-label {
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  width: 0;
+  transition: all 0.25s ease;
+}
+
+.ks-support-fab:hover .ks-support-label {
+  opacity: 1;
+  width: auto;
+}
