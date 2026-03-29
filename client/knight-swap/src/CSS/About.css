@@ -17,11 +17,10 @@
 .hero {
   background: linear-gradient(135deg, var(--ucf-black) 0%, #1a1a1a 100%);
   color: var(--ucf-white);
-  padding: 0.8rem 2rem;
+  padding: 1rem 2rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-  display: none;
 }
 
 .hero::before {
