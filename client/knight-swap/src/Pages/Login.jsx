@@ -164,6 +164,8 @@ function Login() {
   }  
 
   return (
+
+    
     <div className="ks-login-page">
       <div
         className="ks-login-bg"
@@ -348,6 +350,11 @@ function Login() {
           </div>
         )}
       </div>
+            <a href="/help" className="ks-support-fab">
+        <span className="ks-support-icon">?</span>
+        <span className="ks-support-label">Support</span>
+      </a>
+      
     </div>
   );
 }
