@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Homepage from "./Pages/Homepage";
 import About from "./Pages/About";
+import HelpCenter from './Pages/HelpCenter';
 import Shop from "./Pages/Shop";
 import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
