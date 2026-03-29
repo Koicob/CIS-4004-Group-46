@@ -9,7 +9,7 @@ const About = () => {
     <div className="about">
 
       {/* Nav Bar */}
-      <nav className="ks-login-top-nav" style={{ position: 'relative', background: '#000', padding: '18px 40px', width: '100%', boxSizing: 'border-box' }}>
+      <nav className="ks-login-top-nav" style={{ position: 'relative', padding: '18px 40px', width: '100%', boxSizing: 'border-box' }}>
         <div className="ks-login-logo">
           <img src={logo} alt="Knight Swap logo" className="ks-logo-img" />
           <span>Knight Swap</span>
