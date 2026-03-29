@@ -475,11 +475,13 @@ body {
   font-weight: 700;
   font-size: 15px;
   border-radius: 999px;
-  padding: 10px 10px;
+  padding: 10px 14px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   transition: all 0.25s ease;
   overflow: hidden;
-  max-width: 44px;
+  max-width: 48px;
+  min-width: 48px;
+  height: 48px;
   z-index: 999;
 }
 
@@ -489,11 +491,18 @@ body {
 }
 
 .ks-support-icon {
-  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  background: white;
+  color: #111;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
   font-weight: 900;
   flex-shrink: 0;
-  width: 24px;
-  text-align: center;
 }
 
 .ks-support-label {
