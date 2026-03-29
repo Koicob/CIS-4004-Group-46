@@ -608,8 +608,8 @@ body {
 .chat-minimize {
   width: 32px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
