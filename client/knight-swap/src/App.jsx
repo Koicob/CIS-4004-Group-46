@@ -9,6 +9,7 @@ import Shop from "./Pages/Shop";
 import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
 import UserPosts from "./Pages/userPosts";
+import ViewPost from "./Pages/viewPost";
 import Admin from './pages/Admin';
 import Menu from './Components/Navbar';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/sell" element={<><Menu /> <AddItem /></>} />
         <Route path="/offers" element={<><Menu /> <Offers /></>} />
         <Route path="/posts" element={<><Menu /> <UserPosts /></>} />
+        <Route path="/item" element={<><Menu /> <ViewPost /></>} />
         <Route path="/admin" element={<><Menu /> <Admin /></>} />
       </Routes>
     </BrowserRouter>

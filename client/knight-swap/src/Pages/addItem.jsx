@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from "react";
 import { useEffect } from "react";
 import { jwtDecode } from 'jwt-decode';
@@ -173,7 +172,7 @@ export default function AddItem() {
                             <input id="info-insert" type="text" className="form-control" style={{height: '50px'}}
                             value={pickupTime} onChange={(e) => setPickupTime(e.target.value)}/>
 
-                            <div className="col m-4"><button className="btn-dark rounded" onClick={() => {handleSubmit()}}>POST ITEM</button></div>
+                            <div className="col m-4"><button className="submit-button" onClick={() => {handleSubmit()}}>POST ITEM</button></div>
                         </div>
                     </div>
                 </div>

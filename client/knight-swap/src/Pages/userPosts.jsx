@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect } from 'react';
 import { useState} from "react";
 import { jwtDecode } from 'jwt-decode';
@@ -80,7 +79,7 @@ export default function UserPosts() {
         setTagsSelected(new Set(post.tags.map(tag => tag._id)))
     };
 
-    // 
+    // Save User's Image
     async function imageHandle(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -149,11 +148,11 @@ export default function UserPosts() {
                     <label className="item-label" style={{ fontSize: "1.25rem" }}>CURRENTLY NO POSTED ITEMS.</label>
                 ) : (
                     userPosts.map((post) => (
-                        <div id="posts" key={post._id} className="item rounded">
+                        <div id="posts" key={post._id}>
                                     {editingPost === post._id ? (
                                         <>
                                             {/* Image upload and preview */}
-                                            <div id="posts-image" className="rounded">
+                                            <div id="posts-image">
                                                 <div className="m-4" >
                                                     <img src={Data.image} className="form-control"></img>
                                                     <input type="file" accept="image/*" onChange={imageHandle}/>
@@ -211,14 +210,14 @@ export default function UserPosts() {
                                         </>
                                         ) : (
                                         <>
-                                            <div id="posts-image" className="rounded">
+                                            <div id="posts-image">
                                                 <div className="m-4" >
                                                     <img src={post.image} alt={post.title} 
-                                                    className="item-image form-control rounded"/>
+                                                    className="form-control"/>
                                                 </div>
                                             </div>
 
-                                            <div id="posts-info" className="form control rounded border">
+                                            <div id="posts-info" className="rounded border">
                                                 <div className="m-4">
                                                     
                                                     <h3 id="title">{post.title}</h3>

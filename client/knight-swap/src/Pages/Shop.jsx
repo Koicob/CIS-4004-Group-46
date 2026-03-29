@@ -1,9 +1,11 @@
 import "../CSS/Shop.css";
+import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import clothesImg from "../assets/clothes.jpg";
 
 function Shop() {
+  const navigate = useNavigate();
   const [tags, setTags] = useState([]);
   const [items, setItems] = useState([]);
   const [selectedTag, setSelectedTag] = useState("All");
@@ -129,6 +131,10 @@ function Shop() {
     fetchItems();
   }, []);
 
+  function handleItem(id) {
+    navigate("/item", { state: { id } })
+  }
+
   const displayedItems = items.length > 0 ? items : sampleItems;
 
   const filteredItems = displayedItems.filter((item) => {
@@ -217,7 +223,9 @@ function Shop() {
                     {item.location ? item.location.name : "No location"}
                   </p>
 
-                  <button className="ks-shop-card-btn">View Item</button>
+                  <button className="ks-shop-card-btn" onClick={() => handleItem(item._id)}>
+                    View Item
+                  </button>
                 </div>
               </div>
             ))}

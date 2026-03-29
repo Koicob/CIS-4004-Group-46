@@ -16,7 +16,7 @@ body {
   padding: 2rem 1rem 1rem;
 }
 
-p.h2 {
+p.h2, #titleOffer {
   font-size: 1.8rem;
   font-weight: 700;
   color: #2a2a2a;
@@ -186,6 +186,14 @@ input[type="file"]::file-selector-button {
   background: none;
 }
 
+#referenceOffer {
+  font-size: 0.75rem;
+  color:  #111;
+  font-weight: bold;
+  font-style: italic;
+  margin: 2px 0 6px;
+}
+
 .post-container {
   display: flex;
   flex-direction: column;
@@ -203,6 +211,15 @@ input[type="file"]::file-selector-button {
   border-radius: 8px;
   overflow: hidden;
   transition: background 0.2s;
+  position: relative;
+}
+
+#post {
+  display: grid;
+  align-items: stretch;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  overflow: hidden;
   position: relative;
 }
 
@@ -362,20 +379,20 @@ input[type="file"]::file-selector-button {
   outline: none;
 }
 
-.btn-dark {
+.submit-button {
   background: #f5c518  ;
   color: #000  ;
   border-color: #f5c518  ;
   margin-top: 8px;
 }
 
-.btn-dark:hover {
+.submit-button:hover {
   background: #c9a010  ;
   border-color: #c9a010  ;
 }
 
 @media (max-width: 768px) {
-  #posts {
+  #posts, #post {
     grid-template-columns: 1fr;
   }
 

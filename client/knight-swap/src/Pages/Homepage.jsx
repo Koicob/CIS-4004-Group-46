@@ -92,6 +92,10 @@ function Homepage() {
   ? savedUser.username.charAt(0).toUpperCase() + savedUser.username.slice(1)
   : "";
 
+  function handleItem(id) {
+    navigate("/item", { state: { id } })
+  }
+
   return (
     <div className="ks-home-page">
 
@@ -179,7 +183,7 @@ function Homepage() {
               <div className="ks-home-item-info">
                 <h3>{item.title}</h3>
                 <p className="ks-home-item-price">{item.price}</p>
-                <button className="ks-home-item-btn">View Item</button>
+                <button className="ks-home-item-btn" onClick={() => handleItem(item._id)}>View Item</button>
               </div>
             </div>
           ))}
