@@ -233,6 +233,7 @@ body {
 .ks-home-category-link {
   text-decoration: none;
   color: inherit;
+  display: block;
 }
 
 .ks-home-link-text {

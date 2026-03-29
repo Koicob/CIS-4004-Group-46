@@ -1,5 +1,7 @@
 import "../CSS/Homepage.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 import textbooksImg from "../assets/textbooks.jpg";
 import furnitureImg from "../assets/furniture.jpeg";
@@ -10,6 +12,19 @@ function Homepage() {
     username: "Guest"
   };
 
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
+
+  function handleHomepageSearch() {
+    const trimmedSearch = searchText.trim();
+
+    if (trimmedSearch) {
+      navigate(`/shop?search=${encodeURIComponent(trimmedSearch)}`);
+    } else {
+      navigate("/shop");
+    }
+  }
+  
   const categories = [
     {
       id: 1,
@@ -35,6 +50,7 @@ function Homepage() {
     {
       id: 4,
       title: "Clothes",
+      tag: "Clothes",
       description: "Everyday wear, hoodies, and campus style.",
       image: clothesImg
     }
@@ -88,8 +104,15 @@ function Homepage() {
             type="text"
             placeholder="Search textbooks, tech, furniture..."
             className="ks-home-search"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleHomepageSearch();
+              }
+            }}
           />
-          <button className="ks-home-search-btn">Search</button>
+          <button className="ks-home-search-btn" onClick={handleHomepageSearch}>Search</button>
         </div>
       </section>
 
