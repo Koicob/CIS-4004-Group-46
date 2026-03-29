@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { jwtDecode } from 'jwt-decode';
 import defaultImage from "../assets/loadImage.png";
-import "./add-view.css";
+import "../CSS/add-view.css";
 
 export default function AddItem() {
     const [title, setTitle] = useState("");
@@ -116,19 +116,19 @@ export default function AddItem() {
                     <div className="col-lg-7 rounded">
                         {/* Title */}
                         <div className= "col m-4">
-                            <label className="form-label">NAME OF ITEM:</label>
+                            <label className="item-label">NAME OF ITEM:</label>
                             <input id="info-insert" type="text" className="form-control" 
                              value={title} onChange={(e) => setTitle(e.target.value)} /> </div>
                         
                         {/* Description */}
                          <div className="col m-4">
-                            <label className="form-label">DESCRIPTION OF ITEM:</label>
+                            <label className="item-label">DESCRIPTION OF ITEM:</label>
                             <textarea className="form-control"
                             value={description} onChange={(e) => setDescription(e.target.value)} ></textarea></div>
 
                         {/* Price */}
                         <div className="col m-4">
-                            <label className="form-label">INPUT PRICE OF ITEM:</label>
+                            <label className="item-label">INPUT PRICE OF ITEM:</label>
                             <div id="price-input">
                                 <input id="info-insert" type="number" className="form-control" 
                                 value={price} onChange={(e) => setPrice(e.target.value)} />
@@ -137,7 +137,7 @@ export default function AddItem() {
 
                         {/* Tags */}
                         <div className="col m-4">
-                            <label className="form-label">SELECT TAGS:</label>
+                            <label className="item-label">SELECT TAGS:</label>
                             <div id="tag">
                                 {tags.map(tag => (
                                     <button id="tags"
@@ -155,7 +155,7 @@ export default function AddItem() {
 
                         {/* Location */}
                         <div className="col m-4">
-                            <label className="form-label">LOCATION TO PICKUP:</label>
+                            <label className="item-label">LOCATION TO PICKUP:</label>
                             <select className="form-control" value={location} onChange={(e) => setLocation(e.target.value)}>
                                 <option value="">Select a location</option>
                                 {locations.map((loc) => (
@@ -167,7 +167,7 @@ export default function AddItem() {
                         </div>
 
                         <div className="col m-4">
-                            <label className="form-label">PICKUP TIME:</label>
+                            <label className="item-label">PICKUP TIME:</label>
                             <br></br>
                             <label id="reference">*PLEASE USE THE FOLLOWING FORMAT: DOW/DOW - HH:MM-HH:MM*</label>
                             <input id="info-insert" type="text" className="form-control" style={{height: '50px'}}

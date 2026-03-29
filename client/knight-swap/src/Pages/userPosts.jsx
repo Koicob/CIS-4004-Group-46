@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState} from "react";
 import { jwtDecode } from 'jwt-decode';
-import "./add-view.css";
+import "../CSS/add-view.css";
 
 export default function UserPosts() {
 
@@ -11,14 +11,13 @@ export default function UserPosts() {
 
     const [userPosts, setUserPosts] = useState([]);
     const [editingPost, setEditingPost] = useState(null);
+    const [loading, setLoading] = useState();
     const [Data, setData] = useState({});
 
     const [tags, setTags] = useState([]);
     const [tagsSelected, setTagsSelected] = useState(new Set());
 
-
     const [locations, setLocations] = useState([]);
-    const [location, setLocation] = useState("");
     const [PostImage, setPostImage] = useState();
 
     // Fetch User's Posts
@@ -27,8 +26,13 @@ export default function UserPosts() {
             const response = await fetch(`http://localhost:8080/items?sellerId=${sellerId}`);
             const data = await response.json();
             setUserPosts(data);
-        };
 
+            if (data.length === 0) {
+            setLoading(false);
+            } else {
+            setLoading(true);
+            }
+        };
         fetchUserPosts();
     }, [sellerId]);
 
@@ -141,7 +145,10 @@ export default function UserPosts() {
             <div id="title"> <p className="h2">USER'S POSTS</p> </div>
 
             <div className="post-container" >
-                    {userPosts.map((post) => (
+                {loading === false ? (
+                    <label className="item-label" style={{ fontSize: "1.25rem" }}>CURRENTLY NO POSTED ITEMS.</label>
+                ) : (
+                    userPosts.map((post) => (
                         <div id="posts" key={post._id} className="item rounded">
                                     {editingPost === post._id ? (
                                         <>
@@ -156,15 +163,15 @@ export default function UserPosts() {
                                             <div id="posts-info" className="form-control rounded border">
                                                 <div className="m-4">
                                                     {/* Title, Desc, Price */}
-                                                    <label>TITLE:</label>
+                                                    <label className="item-label">TITLE:</label>
                                                     <input name="title" className="form-control" value={Data.title} onChange={(e) => setData({...Data, title: e.target.value})} />
-                                                    <label>DESCRIPTION:</label>
+                                                    <label className="item-label">DESCRIPTION:</label>
                                                     <textarea name="description" className="form-control" value={Data.description} onChange={(e) => setData({...Data, description: e.target.value})}></textarea>
-                                                    <label>PRICE:</label>
+                                                    <label className="item-label">PRICE:</label>
                                                     <div id="price-input"><input type="number" className="form-control"value={Data.price} onChange={(e) => setData({...Data, price: e.target.value})} /></div>
                                                     {/* Tags */}
                                                     <div className="col m-2">
-                                                        <label>TAGS:</label>
+                                                        <label className="item-label">TAGS:</label>
                                                         <div id="tag">
                                                             {tags.map(tag => (
                                                                 <button id="tags"
@@ -180,7 +187,7 @@ export default function UserPosts() {
                                                         </div>
                                                     </div>
                                                     {/* Locations */}
-                                                    <label>LOCATION:</label>
+                                                    <label className="item-label">LOCATION:</label>
                                                     <select className="form-control" value={Data.location._id} onChange={(e) => setData({ ...Data, location: e.target.value })} name="location">
                                                         <option value="">Select a location</option>
                                                         {locations.map((loc) => (
@@ -190,7 +197,7 @@ export default function UserPosts() {
                                                         ))}
                                                     </select>
                                                     {/* Pickup Time */}
-                                                    <label>PICKUP TIME:</label>
+                                                    <label className="item-label">PICKUP TIME:</label>
                                                     <input className="form-control" name="pickupTime" value={Data.pickupTime} onChange={(e) => setData({...Data, pickupTime: e.target.value})} />
                                                     
                                                     
@@ -215,15 +222,15 @@ export default function UserPosts() {
                                                 <div className="m-4">
                                                     
                                                     <h3 id="title">{post.title}</h3>
-                                                    <label>DESCRIPTION:</label>
+                                                    <label className="item-label">DESCRIPTION:</label>
                                                     <p>{post.description}</p>
-                                                    <label>PRICE:</label>
+                                                    <label className="item-label">PRICE:</label>
                                                     <p>${post.price}</p>
-                                                    <label>TAGS:</label>
+                                                    <label className="item-label">TAGS:</label>
                                                     <p>{post.tags.map(tag => tag.name).join(", ")}</p>
-                                                    <label>LOCATION:</label>
+                                                    <label className="item-label">LOCATION:</label>
                                                     <p>{post.location.name}</p>
-                                                    <label>PICKUP TIME:</label>
+                                                    <label className="item-label">PICKUP TIME:</label>
                                                     <p>{post.pickupTime}</p>
                                                 </div>
                                             </div>
@@ -235,7 +242,8 @@ export default function UserPosts() {
                                         </>
                                     )}
                         </div>
-                    ))}
+                    ))
+                )}
             </div>
         </>
     )

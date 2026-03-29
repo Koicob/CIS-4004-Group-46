@@ -1,4 +1,4 @@
-import "./Login.css";
+import "../CSS/Login.css";
 import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import dormImg from "../assets/dorm.jpg";

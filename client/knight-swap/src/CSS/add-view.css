@@ -10,11 +10,6 @@ body {
   min-height: 100vh;
 }
 
-nav {
-  background: #0d0d0d;
-  border-bottom: 2px solid #f5c518;
-}
-
 #title {
   display: flex;
   justify-content: center;
@@ -30,7 +25,7 @@ p.h2 {
   padding-bottom: 0.4em;
 }
 
-label {
+.item-label {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 700;
@@ -39,7 +34,7 @@ label {
   background: #f5c518;
   padding: 2px 8px;
   border-radius: 3px;
-  margin: 8px 0 3px;
+  margin: 8px 0 10px;
 }
 
 .form-control,
@@ -297,7 +292,8 @@ input[type="file"]::file-selector-button {
 
 .container {
   margin: 0 auto;
-  padding: 24px;
+  text-align: center;
+  padding-bottom: 2rem;
 
 }
 

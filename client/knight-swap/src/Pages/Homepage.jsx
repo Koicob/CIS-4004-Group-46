@@ -1,4 +1,4 @@
-import "./Homepage.css";
+import "../CSS/Homepage.css";
 
 import textbooksImg from "../assets/textbooks.jpg";
 import furnitureImg from "../assets/furniture.jpeg";

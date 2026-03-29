@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Admin.css'; 
+import '../CSS/Admin.css'; 
 
 export default function Admin() {
     const savedUserString = localStorage.getItem("savedUser");

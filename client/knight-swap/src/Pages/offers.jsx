@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Offers.css";
+import "../CSS/Offers.css";
 
 const tagOptions = [
   "all",
