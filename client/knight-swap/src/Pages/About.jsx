@@ -187,4 +187,4 @@ const About= () => {
   );
 };
 
-export default AboutUs;
+export default About;
