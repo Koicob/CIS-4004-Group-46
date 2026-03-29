@@ -230,6 +230,11 @@ body {
   color: #f2f2f2;
 }
 
+.ks-home-category-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .ks-home-link-text {
   text-decoration: none;   /* removes underline from shop all text */
   cursor: pointer;

@@ -14,18 +14,21 @@ function Homepage() {
     {
       id: 1,
       title: "Textbooks",
+      tag: "Textbooks",
       description: "Affordable books across campus.",
       image: textbooksImg
     },
     {
       id: 2,
-      title: "Technology",
+      title: "Technology", // what user sees
+      tag: "Tech",           // what backend uses
       description: "Laptops, calculators, keyboards, and more.",
       image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
     },
     {
       id: 3,
       title: "Furniture",
+      tag: "Furniture",
       description: "Chairs, desks, lamps, and dorm pieces.",
       image: furnitureImg
     },
@@ -103,26 +106,32 @@ function Homepage() {
 
         <div className="ks-home-category-grid">
           {categories.map((category) => (
-            <div className="ks-home-category-card" key={category.id}>
-              <div className="ks-home-arrow-circle">↗</div>
+            <Link 
+              to={`/shop?tag=${encodeURIComponent(category.tag)}`}
+              className="ks-home-category-link"
+              key={category.id}
+            >
+              <div className="ks-home-category-card">
+                <div className="ks-home-arrow-circle">↗</div>
 
-              <img
-                src={category.image}
-                alt={category.title}
-                className="ks-home-category-image"
-              />
+                <img  
+                  src={category.image}
+                  alt={category.title}
+                  className="ks-home-category-image"
+                />
 
-              <div className="ks-home-category-overlay">
-                <h3>{category.title}</h3>
-                <p>{category.description}</p>
+                <div className="ks-home-category-overlay">
+                  <h3>{category.title}</h3>
+                  <p>{category.description}</p>
+                </div>
+
+                <div className="ks-home-category-text">
+                  <h3>{category.title}</h3>
+                </div>
               </div>
-
-              <div className="ks-home-category-text">
-                <h3>{category.title}</h3>
-              </div>
-            </div>
+            </Link>
           ))}
-        </div>
+          </div>
       </section>
 
       <section className="ks-home-section">

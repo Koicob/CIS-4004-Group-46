@@ -1,5 +1,6 @@
 import "../CSS/Shop.css";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import clothesImg from "../assets/clothes.jpg";
 
 function Shop() {
@@ -8,6 +9,18 @@ function Shop() {
   const [selectedTag, setSelectedTag] = useState("All");
   const [searchText, setSearchText] = useState("");
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const tagFromUrl = queryParams.get("tag");
+
+  useEffect(() => {
+    if (tagFromUrl) {
+      setSelectedTag(tagFromUrl);
+    } else {
+      setSelectedTag("All");
+    }
+  }, [tagFromUrl]);
+  
   const sampleItems = [
     {
       _id: "1",
@@ -53,7 +66,7 @@ function Shop() {
       _id: "5",
       title: "Bluetooth Headphones",
       description: "Noise-friendly headphones for campus use.",
-      price: 30,
+      price: 20,
       image:
         "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80",
       tags: [{ _id: "t5", name: "Electronics" }],
@@ -73,7 +86,7 @@ function Shop() {
       _id: "7",
       title: "Yellow Chair",
       description: "Brighten up your dorm with this comfortable chair.",
-      price: 10,
+      price: 30,
       image:
         "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=80",
       tags: [{ _id: "t7", name: "Furniture" }],
