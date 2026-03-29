@@ -284,7 +284,7 @@ const About = () => {
           <div className="footer-logo">UCF Student Swap</div>
           <p className="footer-tagline">By Knights, For Knights</p>
           <div className="footer-links">
-            <Link to="/contact">Help</Link>
+            <Link to="/contact">Help Center</Link>
           </div>
           <div className="footer-bottom">
             <p>&copy; 2026 UCF Student Swap. Built exclusively for the University of Central Florida community.</p>
