@@ -93,6 +93,17 @@ body {
   flex-wrap: wrap;
 }
 
+.ks-nav-link-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  padding: 0;
+}
+
 .ks-login-nav-links a {
   color: white;
   text-decoration: none;
