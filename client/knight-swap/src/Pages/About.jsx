@@ -10,7 +10,7 @@ const About= () => {
         <div className="hero-content">
           <h1>About </h1>
           <p className="hero-subtitle">
-            The Official Marketplace for <span className="hero-accent">Knight Nation</span>
+            Knight Swap for the <span className="hero-accent">Knight Nation</span>
           </p>
         </div>
       </section>
