@@ -165,7 +165,7 @@ const About= () => {
       {/* Footer */}
       <footer>
         <div className="footer-content">
-          <div className="footer-logo">⚔ UCF Student Swap</div>
+          <div className="footer-logo"> UCF Student Swap</div>
           <p className="footer-tagline">By Knights, For Knights</p>
           
           <div className="footer-links">
