@@ -598,17 +598,25 @@ body {
   }
 }
 
+.chat-message.user .message-content p {
+  color: white;
+}
+
+.chat-message.bot .message-content p {
+  color: var(--gray-800);
+}
 .chat-minimize {
   width: 32px;
   height: 32px;
   background: rgba(255, 255, 255, 0.1);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background var(--transition-fast);
+  color: white;
 }
 
 .chat-minimize:hover {
@@ -619,6 +627,7 @@ body {
   width: 18px;
   height: 18px;
   color: white;
+  stroke: white;
 }
 
 /* Chat Messages */
@@ -697,6 +706,7 @@ body {
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 4px;
+  color: var(--gray-800);
 }
 
 .message-time {
