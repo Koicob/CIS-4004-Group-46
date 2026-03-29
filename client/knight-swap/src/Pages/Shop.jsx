@@ -132,10 +132,10 @@ function Shop() {
 
   return (
     <div className="ks-shop-page">
-      <section className="ks-shop-header">
+      {/*<section className="ks-shop-header">
         <h1>Shop</h1>
-        <p>Browse items from UCF students by tag.</p>
-      </section>
+        <p>Browse items from your fellow Knights.</p>
+      </section>*/}
 
       <section className="ks-shop-content">
         <aside className="ks-shop-sidebar">
