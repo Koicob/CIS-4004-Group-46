@@ -10,15 +10,17 @@ function Shop() {
   const [mongoItems, setMongoItems] = useState([]);
   const [selectedTag, setSelectedTag] = useState("All");
   const [searchText, setSearchText] = useState("");
+  const [sortOption, setSortOption] = useState("newest");
 
   // read search + tag from URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tagFromUrl = params.get("tag");
     const searchFromUrl = params.get("search");
-    
+    const sortFromUrl = params.get("sort");
     setSelectedTag(tagFromUrl || "All");
     setSearchText(searchFromUrl || "");
+    setSortOption(sortFromUrl || "newest");
     }, [location.search]);
 
     //fetch tags
@@ -50,6 +52,10 @@ function Shop() {
           params.append("tag", selectedTag);
         }
 
+        if(sortOption) {
+          params.append("sort", sortOption);
+        }
+
         const url = `http://localhost:8080/items?${params.toString()}`;
         const response = await fetch(url);
         const data = await response.json();
@@ -60,7 +66,7 @@ function Shop() {
     }
 
     fetchItems();
-  }, [searchText, selectedTag]);
+  }, [searchText, selectedTag, sortOption]);
 
   function handleItem(id) {
     navigate("/item", { state: { id } })
@@ -70,10 +76,6 @@ function Shop() {
 
   return (
     <div className="ks-shop-page">
-      {/*<section className="ks-shop-header">
-        <h1>Shop</h1>
-        <p>Browse items from your fellow Knights.</p>
-      </section>*/}
 
       <section className="ks-shop-content">
         <aside className="ks-shop-sidebar">
@@ -106,6 +108,17 @@ function Shop() {
               <p>{allDisplayedItems.length} item(s)</p>
             </div>
 
+            <div classname="ks-shop-controls">
+              <select
+                className="ks-shop-sort"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+              >
+                <option value="newest">Newest</option>
+                <option value="priceLow">Price: Low to High</option>
+                <option value="priceHigh">Price: High to Low</option>
+              </select>
+              
             <input
               type="text"
               placeholder="Search items..."
@@ -114,6 +127,7 @@ function Shop() {
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
+        </div>
 
           <div className="ks-shop-grid">
             {allDisplayedItems.map((item) => (

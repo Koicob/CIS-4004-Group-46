@@ -15,6 +15,6 @@ const ItemSchema = new mongoose.Schema({
 
     pickupTime: String,
     image: String
-});
+}, { timestamps: true }); //
 
 module.exports = mongoose.model("Item", ItemSchema);

@@ -148,6 +148,7 @@ app.get("/items", async (req, res) => {
         const search = req.query.search ? req.query.search.trim() : "";
         const tag = req.query.tag ? req.query.tag.trim() : "";
         const sellerId = req.query.sellerId ? req.query.sellerId.trim() : "";
+        const sort = req.query.sort || "newest";
 
         let query = {};
 
@@ -171,10 +172,18 @@ app.get("/items", async (req, res) => {
 
             query.tags = { $in: tagIds };
         }
+        let sortOption = { createdAt: -1 };
+
+        if (sort === "priceLow") {
+            sortOption = { price: 1 };
+        } else if (sort === "priceHigh") {
+            sortOption = { price: -1 };
+        }
 
         const items = await Item.find(query)
             .populate("location")
-            .populate("tags");
+            .populate("tags")
+            .sort(sortOption); // Sort by selected option
 
         res.json(items);
     } catch (error) {
