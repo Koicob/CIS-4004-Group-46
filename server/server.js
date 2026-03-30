@@ -49,7 +49,8 @@ app.post("/users", async (req, res) => {
 
 app.get("/users", async (req, res) => {
     try {
-        const users = await User.find()
+        const filter = req.query.sellerId ? { _id: req.query.sellerId } : {};
+        const users = await User.find(filter)
         res.json(users)
     } catch (error) {
         console.log(error)

@@ -13,6 +13,7 @@ import UserPosts from "./Pages/userPosts";
 import ViewPost from "./Pages/viewPost";
 import Admin from './pages/Admin';
 import Menu from './Components/Navbar';
+import AdminMenu from './Components/adminNav';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
         <Route path="/offers" element={<><Menu /> <Offers /></>} />
         <Route path="/posts" element={<><Menu /> <UserPosts /></>} />
         <Route path="/item" element={<><Menu /> <ViewPost /></>} />
-        <Route path="/admin" element={<><Menu /> <Admin /></>} />
+        <Route path="/admin" element={<><AdminMenu /> <Admin /></>} />
         
       </Routes>
     </BrowserRouter>

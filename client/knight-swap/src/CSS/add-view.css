@@ -7,7 +7,7 @@
 body {
   margin: 0;
   color:  #f0f0f0;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 #title {
@@ -193,9 +193,17 @@ input[type="file"]::file-selector-button {
 .post-container {
   display: flex;
   flex-direction: column;
+  flex: 1;  
   gap: 16px;
   padding: 24px 32px;
   background: #2a2a2a !important;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
 
 #posts {
@@ -221,8 +229,12 @@ input[type="file"]::file-selector-button {
 }
 
 #postOffer {
+  margin: 1px;
+  border-radius: 8px;
+  border: 3px solid #f5c518;
   background: #0d0d0d;
-  overflow: hidden;
+  overflow-y: auto;
+  flex: 1; 
 }
 
 #posts::before {

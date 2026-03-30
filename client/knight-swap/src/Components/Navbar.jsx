@@ -51,7 +51,7 @@ function Navbar({ username }) {
           className={location.pathname === "/posts" ? "ks-home-nav-active" : ""}
           onClick={() => navigate("/posts")}
         >
-          POSTS
+          MY POSTS
         </span>
 
         <button className="ks-home-logout-btn" onClick={handleLogout}>

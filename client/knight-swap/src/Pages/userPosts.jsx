@@ -106,8 +106,6 @@ export default function UserPosts() {
             method: "DELETE"
         });
         setUserPosts(userPosts.filter(post => post._id !== id));
-
-        alert("Item deleted successfully!");
     }
 
     // Save User's Edit
