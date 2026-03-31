@@ -2,20 +2,30 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  color: #070707; /* default text for light areas */
+  color: #070707;
 }
 
-/* ===== HEADER (TOP SECTION ONLY) ===== */
+/* ===== TOP HEADER ONLY ===== */
 .offers-header {
   margin-bottom: 2rem;
   text-align: center;
 }
 
-/* FORCE BLACK TEXT ONLY FOR HEADER */
-.offers-page .offers-header h1,
-.offers-page .offers-header p {
-  color: #000000;
-  opacity: 1;
+.offers-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #000 !important;
+}
+
+.offers-header p {
+  font-size: 1rem;
+  color: #000 !important;
+}
+
+.offers-header,
+.offers-header * {
+  opacity: 1 !important;
+  text-shadow: none !important;
 }
 
 /* ===== FILTER CONTROLS ===== */
@@ -24,6 +34,10 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 2rem;
+}
+
+.offers-controls label {
+  color: #000;
 }
 
 .offers-controls select {
@@ -42,7 +56,13 @@
   border-radius: 14px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  color: white; /* ensures white text inside dark sections */
+  color: white;
+}
+
+.offers-list-section h2,
+.offers-list-section p,
+.offers-list-section strong {
+  color: white;
 }
 
 /* ===== FORM ===== */
@@ -103,6 +123,11 @@
   color: white;
 }
 
+.offer-card p,
+.offer-card strong {
+  color: white;
+}
+
 .offer-card-top {
   display: flex;
   justify-content: space-between;
@@ -122,23 +147,27 @@
 
 .offer-badge.inquiry {
   background: #374151;
+  color: white;
 }
 
 .offer-badge.offer {
   background: #065f46;
+  color: white;
 }
 
 .offer-badge.buy-now {
   background: #7c2d12;
+  color: white;
 }
 
 .offer-tag {
   background: #27272a;
+  color: white;
 }
 
 /* ===== ERROR TEXT ===== */
 .error-text {
-  color: #f87171;
+  color: #f87171 !important;
   margin-top: 1rem;
 }
 
