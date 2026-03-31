@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../CSS/offers.css";
 
 const tagOptions = [
-  "all",
-  "tech",
-  "textbooks",
-  "furniture",
-  "clothes",
-  "electronics",
-  "school supplies",
-  "misc",
+  "All",
+  "Tech",
+  "Textbooks",
+  "Furniture",
+  "Clothes",
+  "Electronics",
+  "School Supplies",
+  "Miscellaneous",
 ];
 
 export default function Offers() {
