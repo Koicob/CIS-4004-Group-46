@@ -1,7 +1,6 @@
 import "../CSS/Homepage.css";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 
 import textbooksImg from "../assets/textbooks.jpg";
 import furnitureImg from "../assets/furniture.jpeg";
@@ -14,7 +13,9 @@ function Homepage() {
 
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
+  const [featuredItems, setFeaturedItems] = useState([]);
 
+  // Handle search from homepage & navigate to shop with search query
   function handleHomepageSearch() {
     const trimmedSearch = searchText.trim();
 
@@ -24,7 +25,28 @@ function Homepage() {
       navigate("/shop");
     }
   }
+
+  function handleFeaturedItem(id) {
+    navigate("/item", { state: { id } });
+  }
+
+  // Fetch featured items from backend 
+  useEffect(() => {
+    async function fetchFeaturedItems() {
+      try {
+        const response = await fetch("http://localhost:8080/items");
+        const data = await response.json();
+        
+        setFeaturedItems(data.slice(0, 4)); // Show only the first 4 items as featured  
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchFeaturedItems();
+  }, []);
   
+  // Featured categories with images and descriptions
   const categories = [
     {
       id: 1,
@@ -56,6 +78,11 @@ function Homepage() {
     }
   ];
 
+  const formattedUsername = savedUser?.username
+    ? savedUser.username.charAt(0).toUpperCase() + savedUser.username.slice(1)
+    : ""; // Capitalize first letter of username
+
+  /*
   const featuredItems = [
     {
       id: 1,
@@ -81,16 +108,8 @@ function Homepage() {
       price: "$20",
       image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=900&q=80"
     }
-  ];
+  ]; */
 
-  function handleLogout() {
-    localStorage.removeItem("savedUser");
-    window.location.href = "/";
-  }
-
-  const formattedUsername = savedUser?.username
-  ? savedUser.username.charAt(0).toUpperCase() + savedUser.username.slice(1)
-  : "";
 
   function handleItem(id) {
     navigate("/item", { state: { id } })
@@ -171,7 +190,7 @@ function Homepage() {
 
         <div className="ks-home-item-grid">
           {featuredItems.map((item) => (
-            <div className="ks-home-item-card" key={item.id}>
+            <div className="ks-home-item-card" key={item._id}>
               <div className="ks-home-item-image-wrap">
                 <img
                   src={item.image}
@@ -182,7 +201,7 @@ function Homepage() {
 
               <div className="ks-home-item-info">
                 <h3>{item.title}</h3>
-                <p className="ks-home-item-price">{item.price}</p>
+                <p className="ks-home-item-price">${item.price}</p>
                 <button className="ks-home-item-btn" onClick={() => handleItem(item._id)}>View Item</button>
               </div>
             </div>

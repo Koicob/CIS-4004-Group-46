@@ -275,6 +275,16 @@ app.get("/seedItems", async (req, res) => {
                 pickupTime: "MON/WED - 12:00-2:00",
                 image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=900&q=80"
             },
+            {   
+                title: "Casio Calculator",
+                description: "Ideal for math and engineering courses.",
+                price: 10,
+                sellerId: user1._id.toString(),
+                tags:[schoolSuppliesTag._id],
+                location: studentUnion1._id,
+                pickupTime: "MON/THU - 3:00-5:00",
+                image: "https://images.unsplash.com/photo-1574607383077-47ddc2dc51c4?q=80&w=1200&auto=format&fit=crop&w=900&q=80"
+            },
             {
                 title: "Javascript Textbook",
                 description: "Used textbook for javascript courses.",

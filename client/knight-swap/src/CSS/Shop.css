@@ -137,6 +137,24 @@
   border-color: #ffc904;
 }
 
+/* empty state */
+.ks-shop-empty {
+  width: 100%;
+  padding: 60px 20px;
+  text-align: center;
+  color: #555;
+}
+
+.ks-shop-empty p {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ks-shop-empty span {
+  font-size: 16px;
+}
+
 /* items grid */
 .ks-shop-grid {
   display: grid;
