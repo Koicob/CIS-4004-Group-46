@@ -81,6 +81,31 @@ export default function Admin() {
         }
     };
 
+    const handleEditTitleClick = async (item) => {
+        const newTitle = window.prompt("Enter a new, title for this item:", item.title);
+
+        if (!newTitle || newTitle.trim() === "") {
+            return;
+        }
+
+        try {
+            let response = await fetch("http://localhost:8080/items/" + item._id, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: newTitle })
+            });
+
+            if (response.ok === true) {
+                alert("Item title successfully updated!");
+                window.location.reload(); 
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleCreateLocation = async (event) => {
         event.preventDefault();
         
@@ -165,12 +190,23 @@ export default function Admin() {
                         <h4>{item.title}</h4>
                         <p><strong>Seller ID:</strong> {item.sellerId}</p>
                         <p><strong>Price:</strong> ${item.price}</p>
-                        <button 
-                            className="ks-admin-btn" 
-                            onClick={() => handleForceDeleteClick(item._id)}
-                        >
-                            Force Delete Item
-                        </button>
+                        
+                        <div style={{ display: "flex", gap: "10px", marginTop: "18px" }}>
+                            <button 
+                                className="ks-admin-btn" 
+                                style={{ marginTop: "0" }}
+                                onClick={() => handleEditTitleClick(item)}
+                            >
+                                Edit Title
+                            </button>
+                            <button 
+                                className="ks-admin-btn" 
+                                style={{ marginTop: "0" }}
+                                onClick={() => handleForceDeleteClick(item._id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
