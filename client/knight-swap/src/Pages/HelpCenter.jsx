@@ -246,7 +246,6 @@ export default function HelpCenter() {
           <h1>Help Center</h1>
           <p>Find answers to common questions about buying, selling, and trading on UCF Student Swap.</p>
         </div>
-        </div>
 
         {/* Search */}
         <div className="search-container">
