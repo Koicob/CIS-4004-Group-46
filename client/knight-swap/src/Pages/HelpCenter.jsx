@@ -243,9 +243,9 @@ export default function HelpCenter() {
       <section className="help-center">
         {/* Header */}
         <div className="help-header">
-          <span className="help-badge">Support</span>
           <h1>Help Center</h1>
           <p>Find answers to common questions about buying, selling, and trading on UCF Student Swap.</p>
+        </div>
         </div>
 
         {/* Search */}
