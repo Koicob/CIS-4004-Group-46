@@ -82,35 +82,6 @@ function Homepage() {
     ? savedUser.username.charAt(0).toUpperCase() + savedUser.username.slice(1)
     : ""; // Capitalize first letter of username
 
-  /*
-  const featuredItems = [
-    {
-      id: 1,
-      title: "Javascript Textbook",
-      price: "$25",
-      image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Desk Lamp",
-      price: "$12",
-      image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      id: 3,
-      title: "Casio Calculator",
-      price: "$10",
-      image: "https://images.unsplash.com/photo-1574607383077-47ddc2dc51c4?q=80&w=1200&auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      id: 4,
-      title: "Wireless Keyboard",
-      price: "$20",
-      image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=900&q=80"
-    }
-  ]; */
-
-
   function handleItem(id) {
     navigate("/item", { state: { id } })
   }

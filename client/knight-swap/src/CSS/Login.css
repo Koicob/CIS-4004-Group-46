@@ -462,6 +462,7 @@ body {
   }
 }
 
+/* support FAB */
 .ks-support-fab {
   position: fixed;
   bottom: 24px;
@@ -469,7 +470,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: white;
+  background: #FFC904;
   color: #111;
   text-decoration: none;
   font-weight: 700;
@@ -514,4 +515,114 @@ body {
 .ks-support-fab:hover .ks-support-label {
   opacity: 1;
   width: auto;
+}
+
+/* preview section */
+.ks-preview {
+  position: relative;
+  z-index: 2;
+  padding: 80px 24px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.85),
+    #111
+  );
+  color: white;
+}
+
+.ks-preview-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ks-preview-eyebrow {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #FFC904;
+}
+
+.ks-preview h2 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+}
+
+.ks-preview-subtext {
+  margin: 14px auto 36px;
+  max-width: 680px;
+  color: #d3d3d3;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.ks-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.ks-preview-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 201, 4, 0.18);
+  border-radius: 22px;
+  padding: 28px 22px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ks-preview-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: #FFC904;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.ks-preview-card h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.ks-preview-card p {
+  margin: 0;
+  color: #cfcfcf;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ks-preview-note {
+  margin-top: 30px;
+  color: #FFC904;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+  .ks-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .ks-preview {
+    padding: 60px 20px;
+  }
+
+  .ks-preview h2 {
+    font-size: 32px;
+  }
+
+  .ks-preview-subtext {
+    font-size: 16px;
+  }
+
+  .ks-preview-grid {
+    grid-template-columns: 1fr;
+  }
 }

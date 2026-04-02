@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../assets/logo.png";
 import '../CSS/HelpCenter.css';
@@ -43,14 +43,14 @@ const faqs = [
       <>
         <p>Creating a listing is quick and easy:</p>
         <ol>
-          <li>Click the <strong>"+ New Listing"</strong> button in the top navigation.</li>
-          <li>Choose a category (Textbooks, Electronics, Furniture, etc.).</li>
-          <li>Add clear photos of your item (up to 6 images).</li>
+          <li>Click the <strong>"Sell"</strong> button in the navigation menu.</li>
+          <li>Choose a category for your item (Textbooks, Electronics, Furniture, etc.).</li>
+          <li>Add a photo of your item.</li>
           <li>Write a descriptive title and detailed description.</li>
-          <li>Set your price or mark it as "Trade Only" / "Free".</li>
-          <li>Hit <strong>"Publish"</strong> and you're live!</li>
+          <li>Set your asking price.</li>
+          <li>Hit <strong>"Post Item"</strong> and you're live!</li>
         </ol>
-        <p className="tip">Pro tip: Listings with clear photos and detailed descriptions sell 3x faster!</p>
+        <p className="tip">Pro tip: A clear photo and detailed description help your item sell faster!</p>
       </>
     ),
   },
@@ -75,13 +75,7 @@ const faqs = [
     question: 'How do I report a suspicious listing or user?',
     answer: (
       <>
-        <p>If you encounter something suspicious, please report it immediately:</p>
-        <ol>
-          <li>Click the <strong>"..."</strong> menu on any listing or user profile.</li>
-          <li>Select <strong>"Report"</strong> from the dropdown.</li>
-          <li>Choose a reason and add any additional details.</li>
-          <li>Submit your report — our team reviews within 24 hours.</li>
-        </ol>
+        <p>If you encounter something suspicious, please report it immediately using the <strong>Report</strong> button found on any listing or user profile. Our admin team reviews all reports promptly.</p>
         <p>For urgent safety concerns, contact UCF Police at <strong>(407) 823-5555</strong>.</p>
       </>
     ),
@@ -93,9 +87,8 @@ const faqs = [
       <>
         <p><strong>Absolutely!</strong> Negotiation is encouraged on UCF Student Swap.</p>
         <ul>
-          <li>Use the <strong>"Make an Offer"</strong> button to send a private offer.</li>
+          <li>Use the <strong>"Make an Offer"</strong> button on any listing to send a private offer to the seller.</li>
           <li>Be respectful — lowball offers are generally not appreciated.</li>
-          <li>Check the listing for "Price Firm" tags before negotiating.</li>
           <li>Bundle deals often get better discounts!</li>
         </ul>
       </>
@@ -103,24 +96,9 @@ const faqs = [
   },
 ];
 
-const botResponses = [
-  "Thanks for reaching out! A support team member will be with you shortly.",
-  "I've noted your message. Our team typically responds within a few minutes during business hours.",
-  "Got it! While you wait, feel free to check our FAQ section for quick answers.",
-  "Thanks, Knight! We're here to help. Someone will respond soon.",
-];
-
 export default function HelpCenter() {
-  // FAQ & Chat state
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [chatOpen, setChatOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { text: "Hey there, Knight! How can I help you today?", isUser: false, time: 'Just now' },
-  ]);
-  const [showQuickReplies, setShowQuickReplies] = useState(true);
-  const [inputValue, setInputValue] = useState('');
-  const chatMessagesRef = useRef(null);
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
@@ -132,11 +110,11 @@ export default function HelpCenter() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  useEffect(() => {
-    if (chatMessagesRef.current) {
-      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-    }
-  }, [messages]);
+  // Report modal state
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const [reportDetails, setReportDetails] = useState("");
+  const [reportSubmitted, setReportSubmitted] = useState(false);
 
   function openLoginModal() {
     setLoginUsername("");
@@ -230,18 +208,15 @@ export default function HelpCenter() {
     setActiveIndex(activeIndex === index ? null : index);
   }
 
-  function sendMessage(text) {
-    const msgText = text || inputValue.trim();
-    if (!msgText) return;
-    const now = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-    setMessages(prev => [...prev, { text: msgText, isUser: true, time: now }]);
-    setShowQuickReplies(false);
-    setInputValue('');
+  function handleReportSubmit(event) {
+    event.preventDefault();
+    setReportSubmitted(true);
     setTimeout(() => {
-      const reply = botResponses[Math.floor(Math.random() * botResponses.length)];
-      const replyTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-      setMessages(prev => [...prev, { text: reply, isUser: false, time: replyTime }]);
-    }, 1000);
+      setShowReportModal(false);
+      setReportSubmitted(false);
+      setReportReason("");
+      setReportDetails("");
+    }, 2000);
   }
 
   const filteredFaqs = faqs.filter(faq => {
@@ -259,7 +234,7 @@ export default function HelpCenter() {
         </Link>
         <div className="ks-login-nav-links">
           <Link to="/about" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>About</Link>
-          <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
+          <a href="/#preview-section" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
           <button className="ks-login-nav-login" onClick={openLoginModal}>Log In</button>
           <button className="ks-login-nav-signup" onClick={openSignupModal}>Sign Up</button>
         </div>
@@ -268,7 +243,6 @@ export default function HelpCenter() {
       <section className="help-center">
         {/* Header */}
         <div className="help-header">
-          <span className="help-badge">Support</span>
           <h1>Help Center</h1>
           <p>Find answers to common questions about buying, selling, and trading on UCF Student Swap.</p>
         </div>
@@ -367,130 +341,35 @@ export default function HelpCenter() {
           <div className="contact-card">
             <div className="contact-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
             </div>
-            <h3>Live Chat</h3>
-            <p>Available Mon-Fri, 9am-5pm</p>
-            <button className="contact-link" onClick={() => setChatOpen(true)}>Start a conversation</button>
+            <h3>Report an Issue</h3>
+            <p>Flag a suspicious listing or user</p>
+            <button className="contact-link" onClick={() => setShowReportModal(true)}>Submit a Report</button>
           </div>
         </div>
       </section>
 
-      {/* Floating Chat Widget */}
-      <div className={`chat-widget ${chatOpen ? 'open' : ''}`}>
-        <button className="chat-toggle" onClick={() => setChatOpen(!chatOpen)} aria-label="Open support chat">
-          <svg className="chat-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
-          <svg className="chat-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-          {!chatOpen && <span className="chat-notification">1</span>}
-        </button>
-
-        <div className="chat-window">
-          <div className="chat-header">
-            <div className="chat-header-info">
-              <div className="chat-avatar">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-              </div>
-              <div>
-                <h4>UCF Swap Support</h4>
-                <span className="chat-status">
-                  <span className="status-dot"></span>
-                  Online now
-                </span>
-              </div>
-            </div>
-            <button className="chat-minimize" onClick={() => setChatOpen(false)} aria-label="Minimize chat">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-            </button>
-          </div>
-
-          <div className="chat-messages" ref={chatMessagesRef}>
-            {messages.map((msg, i) => (
-              <div key={i} className={`chat-message ${msg.isUser ? 'user' : 'bot'}`}>
-                <div className="message-avatar">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                  </svg>
-                </div>
-                <div className="message-content">
-                  <p>{msg.text}</p>
-                  <span className="message-time">{msg.time}</span>
-                </div>
-              </div>
-            ))}
-
-            {showQuickReplies && (
-              <div className="quick-replies">
-                <button className="quick-reply" onClick={() => sendMessage("I need help with my listing")}>Help with listing</button>
-                <button className="quick-reply" onClick={() => sendMessage("I want to report a user")}>Report a user</button>
-                <button className="quick-reply" onClick={() => sendMessage("I have a payment question")}>Payment question</button>
-              </div>
-            )}
-          </div>
-
-          <div className="chat-input-container">
-            <input
-              type="text"
-              className="chat-input"
-              placeholder="Type your message..."
-              value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && sendMessage()}
-            />
-            <button className="chat-send" onClick={() => sendMessage()} aria-label="Send message">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal */}
+      {/* Login/Signup Modal */}
       {showModal && (
         <div className="ks-login-modal-wrapper">
           <div className="ks-login-modal-card">
             <button className="ks-login-close-button" onClick={closeModal}>×</button>
-
             {modalType === "login" ? (
               <>
                 <h2>Welcome to Knight Swap</h2>
                 <p className="ks-login-modal-subtitle">Buy, sell, and discover items across UCF</p>
                 <form onSubmit={handleLoginSubmit}>
                   <label htmlFor="loginUsername">Username</label>
-                  <input
-                    id="loginUsername"
-                    type="text"
-                    placeholder="Enter your username"
-                    value={loginUsername}
-                    onChange={(e) => setLoginUsername(e.target.value)}
-                    required
-                  />
+                  <input id="loginUsername" type="text" placeholder="Enter your username" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} required />
                   <label htmlFor="loginPassword">Password</label>
-                  <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    required
-                  />
+                  <input id="loginPassword" type="password" placeholder="Enter your password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
                   <button type="submit" className="ks-login-main-button">Log In</button>
                 </form>
-                <p className="ks-login-switch-text">
-                  Don't have an account?{" "}
-                  <span onClick={openSignupModal}>Sign up</span>
-                </p>
+                <p className="ks-login-switch-text">Don't have an account? <span onClick={openSignupModal}>Sign up</span></p>
               </>
             ) : (
               <>
@@ -498,47 +377,64 @@ export default function HelpCenter() {
                 <p className="ks-login-modal-subtitle">Create an account to start buying and selling on campus</p>
                 <form onSubmit={handleRegisterSubmit}>
                   <label htmlFor="registerEmail">UCF Email</label>
-                  <input
-                    id="registerEmail"
-                    type="email"
-                    placeholder="example@ucf.edu"
-                    value={registerEmail}
-                    onChange={(e) => setRegisterEmail(e.target.value)}
-                    required
-                  />
+                  <input id="registerEmail" type="email" placeholder="example@ucf.edu" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} required />
                   <label htmlFor="registerUsername">Username</label>
-                  <input
-                    id="registerUsername"
-                    type="text"
-                    placeholder="Choose a username"
-                    value={registerUsername}
-                    onChange={(e) => setRegisterUsername(e.target.value)}
-                    required
-                  />
+                  <input id="registerUsername" type="text" placeholder="Choose a username" value={registerUsername} onChange={(e) => setRegisterUsername(e.target.value)} required />
                   <label htmlFor="registerPassword">Password</label>
-                  <input
-                    id="registerPassword"
-                    type="password"
-                    placeholder="Create a password"
-                    value={registerPassword}
-                    onChange={(e) => setRegisterPassword(e.target.value)}
-                    required
-                  />
+                  <input id="registerPassword" type="password" placeholder="Create a password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} required />
                   <label htmlFor="confirmPassword">Confirm Password</label>
-                  <input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                  />
+                  <input id="confirmPassword" type="password" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                   <button type="submit" className="ks-login-main-button">Create Account</button>
                 </form>
-                <p className="ks-login-switch-text">
-                  Already have an account?{" "}
-                  <span onClick={openLoginModal}>Log in</span>
-                </p>
+                <p className="ks-login-switch-text">Already have an account? <span onClick={openLoginModal}>Log in</span></p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Report Modal */}
+      {showReportModal && (
+        <div className="ks-login-modal-wrapper">
+          <div className="ks-login-modal-card">
+            <button className="ks-login-close-button" onClick={() => { setShowReportModal(false); setReportSubmitted(false); setReportReason(""); setReportDetails(""); }}>×</button>
+            {reportSubmitted ? (
+              <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✅</div>
+                <h2 style={{ fontSize: '1.5rem' }}>Report Submitted</h2>
+                <p className="ks-login-modal-subtitle">Our team will review it within 24 hours. Thank you!</p>
+              </div>
+            ) : (
+              <>
+                <h2>Submit a Report</h2>
+                <p className="ks-login-modal-subtitle">Flag a suspicious listing or user to our admin team</p>
+                <form onSubmit={handleReportSubmit}>
+                  <label htmlFor="reportReason">Reason</label>
+                  <select
+                    id="reportReason"
+                    value={reportReason}
+                    onChange={(e) => setReportReason(e.target.value)}
+                    required
+                    style={{ width: '100%', padding: '14px 16px', border: '1px solid #d3d3d3', borderRadius: '16px', fontSize: '16px', marginBottom: '8px', fontFamily: 'inherit' }}
+                  >
+                    <option value="">Select a reason...</option>
+                    <option value="suspicious_listing">Suspicious listing</option>
+                    <option value="suspicious_user">Suspicious user</option>
+                    <option value="scam">Potential scam</option>
+                    <option value="inappropriate">Inappropriate content</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <label htmlFor="reportDetails">Details</label>
+                  <textarea
+                    id="reportDetails"
+                    placeholder="Describe the issue in detail..."
+                    value={reportDetails}
+                    onChange={(e) => setReportDetails(e.target.value)}
+                    required
+                    style={{ width: '100%', padding: '14px 16px', border: '1px solid #d3d3d3', borderRadius: '16px', fontSize: '16px', fontFamily: 'inherit', minHeight: '120px', resize: 'vertical' }}
+                  />
+                  <button type="submit" className="ks-login-main-button">Submit Report</button>
+                </form>
               </>
             )}
           </div>
