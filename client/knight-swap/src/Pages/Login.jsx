@@ -56,6 +56,16 @@ function Login() {
     return () => clearInterval(interval);
   }, [currentSlide,slides.length]);
 
+  /* preview section - auto scroll to section if coming from about page */
+  useEffect(() => {
+    if (window.location.hash === "#preview-section") {
+      setTimeout(() => {
+        document.getElementById("preview-section")?.scrollIntoView({
+          behavior: "smooth"
+        });
+      }, 100); // slight delay to ensure element is rendered
+    }
+  }, []);
 
   function goToAbout() {
   window.location.href = "/about";
@@ -189,7 +199,14 @@ function Login() {
             <button className="ks-nav-link-btn" onClick={goToAbout}>
               About
             </button>
-            <a href="#">Browse</a>
+            <button className="ks-nav-link-btn" onClick={() => {
+                document.getElementById("preview-section")?.scrollIntoView({
+                  behavior: "smooth"
+                });
+              }} 
+            >
+              Browse
+            </button>
             <button className="ks-login-nav-login" onClick={openLoginModal}>
               Log In
             </button>
@@ -350,12 +367,50 @@ function Login() {
           </div>
         )}
       </div>
-            <a href="/help" className="ks-support-fab">
+      {/*preview section - shows 4 categories wit images*/}
+      <div id="preview-section" className="ks-preview">
+        <div className="ks-preview-inner">
+          <p className="ks-preview-eyebrow">MARKETPLACE PREVIEW</p>
+          <h2>Browse Categories</h2>
+          <p className="ks-preview-subtext">
+            Explore what UCF students are buying and selling around campus.
+          </p>
+
+          <div className="ks-preview-grid">
+            <div className="ks-preview-card">
+              <h3>Textbooks</h3>
+              <p>Afforable books for your classes.</p>
+            </div>
+
+            <div className="ks-preview-card">
+              <h3>Tech</h3>
+              <p>Find laptops, tablets, and more.</p>
+            </div>
+            
+            <div className="ks-preview-card">
+              <h3>Furniture</h3>
+              <p>Get everything you need for your dorm room.</p>
+            </div>
+
+            <div className="ks-preview-card">
+              <h3>Clothes</h3>
+              <p>Student styles at a fraction of retail prices.</p>
+            </div>
+          </div>
+
+          <p className="ks-preview-note"> 
+            Log in or create an account to view items and make offers.
+          </p>
+          </div>
+        </div>   
+
+      {/* Support - Always visible in bottom right corner */}
+      <a href="/help" className="ks-support-fab">
         <span className="ks-support-icon">?</span>
         <span className="ks-support-label">Support</span>
-      </a>
-      
+      </a> 
     </div>
+    
   );
 }
 

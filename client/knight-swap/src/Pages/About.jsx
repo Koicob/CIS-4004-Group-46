@@ -115,7 +115,7 @@ const About = () => {
         </Link>
         <div className="ks-login-nav-links">
           <Link to="/about" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>About</Link>
-          <a href="#" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
+          <a href="/#preview-section" style={{ color: 'white', textDecoration: 'none', fontWeight: '600' }}>Browse</a>
           <button className="ks-login-nav-login" onClick={openLoginModal}>Log In</button>
           <button className="ks-login-nav-signup" onClick={openSignupModal}>Sign Up</button>
         </div>
