@@ -5,6 +5,9 @@ export default function ReceivedOffers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const savedUser = JSON.parse(localStorage.getItem("savedUser"));
+  const currentUserId = savedUser?._id;
+
   useEffect(() => {
     fetchReceivedOffers();
   }, []);
@@ -22,14 +25,46 @@ export default function ReceivedOffers() {
 
       const data = await response.json();
 
-      // Placeholder logic:
-      // Later this should filter by sellerId === currentUserId
-      setReceivedOffers(data);
+      const filtered = data.filter(
+        (offer) => String(offer.sellerId) === String(currentUserId)
+      );
+
+      setReceivedOffers(filtered);
     } catch (err) {
       console.error("Error fetching received offers:", err);
       setError(err.message || "Failed to fetch received offers");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const updateOfferStatus = async (offerId, newStatus) => {
+    try {
+      setError("");
+
+      const response = await fetch(
+        `http://localhost:8080/offers/${offerId}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update offer to ${newStatus}`);
+      }
+
+      setReceivedOffers((prevOffers) =>
+        prevOffers.map((offer) =>
+          offer._id === offerId ? { ...offer, status: newStatus } : offer
+        )
+      );
+    } catch (err) {
+      console.error("Error updating offer status:", err);
+      setError(err.message || "Failed to update offer status");
     }
   };
 
@@ -50,23 +85,28 @@ export default function ReceivedOffers() {
               <span className="offer-badge offer">Offer</span>
             </div>
 
-            <p>
-              <strong>Item:</strong> {offer.itemId}
-            </p>
-            <p>
-              <strong>Buyer:</strong> {offer.buyerId}
-            </p>
-            <p>
-              <strong>Amount:</strong> {offer.offerPrice ?? "N/A"}
-            </p>
-            <p>
-              <strong>Message:</strong> {offer.comment || "No message provided"}
-            </p>
-            <p>
-              <strong>Status:</strong> {offer.status}
-            </p>
+            <p><strong>Item:</strong> {offer.itemId}</p>
+            <p><strong>Buyer:</strong> {offer.buyerUsername || "Unknown"}</p>
+            <p><strong>Amount:</strong> {offer.offerPrice ?? "N/A"}</p>
+            <p><strong>Message:</strong> {offer.comment || "No message provided"}</p>
+            <p><strong>Status:</strong> {offer.status}</p>
 
-            {/* Later: Accept / Deny buttons go here */}
+            {offer.status === "pending" && (
+              <div className="offer-actions">
+                <button
+                  type="button"
+                  onClick={() => updateOfferStatus(offer._id, "accepted")}
+                >
+                  Accept
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateOfferStatus(offer._id, "denied")}
+                >
+                  Deny
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

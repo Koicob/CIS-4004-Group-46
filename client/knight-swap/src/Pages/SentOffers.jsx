@@ -5,6 +5,9 @@ export default function SentOffers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const savedUser = JSON.parse(localStorage.getItem("savedUser"));
+  const currentUserId = savedUser?._id;
+
   useEffect(() => {
     fetchSentOffers();
   }, []);
@@ -22,9 +25,11 @@ export default function SentOffers() {
 
       const data = await response.json();
 
-      // Placeholder logic:
-      // Later this should filter by buyerId === currentUserId
-      setSentOffers(data);
+      const filtered = data.filter(
+        (offer) => String(offer.buyerId) === String(currentUserId)
+      );
+
+      setSentOffers(filtered);
     } catch (err) {
       console.error("Error fetching sent offers:", err);
       setError(err.message || "Failed to fetch sent offers");
@@ -50,21 +55,11 @@ export default function SentOffers() {
               <span className="offer-badge offer">Offer</span>
             </div>
 
-            <p>
-              <strong>Item:</strong> {offer.itemId}
-            </p>
-            <p>
-              <strong>Buyer:</strong> {offer.buyerId}
-            </p>
-            <p>
-              <strong>Amount:</strong> {offer.offerPrice ?? "N/A"}
-            </p>
-            <p>
-              <strong>Message:</strong> {offer.comment || "No message provided"}
-            </p>
-            <p>
-              <strong>Status:</strong> {offer.status}
-            </p>
+            <p><strong>Item:</strong> {offer.itemId}</p>
+            <p><strong>Seller:</strong> {offer.sellerUsername || "Unknown"}</p>
+            <p><strong>Amount:</strong> {offer.offerPrice ?? "N/A"}</p>
+            <p><strong>Message:</strong> {offer.comment || "No message provided"}</p>
+            <p><strong>Status:</strong> {offer.status}</p>
           </div>
         ))}
       </div>

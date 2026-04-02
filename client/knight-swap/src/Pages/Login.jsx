@@ -103,6 +103,7 @@ function Login() {
 
       if (response.ok) {
         localStorage.setItem("savedUser", JSON.stringify(data.user));
+        localStorage.setItem("userId", data.user._id);
         localStorage.setItem("token", data.token);
         alert("Login successful");
         closeModal();

@@ -468,6 +468,32 @@ app.get("/offers", async (req, res) => {
     }
 });
 
+app.patch("/offers/:offerId/status", async (req, res) => {
+    try {
+        const { offerId } = req.params;
+        const { status } = req.body;
+
+        if (!["pending", "accepted", "denied"].includes(status)) {
+            return res.status(400).json({ error: "Invalid status value" });
+        }
+
+        const updatedOffer = await Offer.findByIdAndUpdate(
+            offerId,
+            { status },
+            { new: true }
+        );
+
+        if (!updatedOffer) {
+            return res.status(404).json({ error: "Offer not found" });
+        }
+
+        res.json(updatedOffer);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error updating offer status");
+    }
+});
+
 app.get("/tags", async (req, res) => {
     try {
         const tags = await Tag.find()

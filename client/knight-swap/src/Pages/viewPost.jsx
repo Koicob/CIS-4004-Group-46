@@ -42,6 +42,7 @@ export default function ViewPost() {
         const newOffer = {
             itemId: id,
             buyerId: buyerID,
+            sellerId: userPost.sellerId,
             offerPrice: bid,
             comment: message,
         }
