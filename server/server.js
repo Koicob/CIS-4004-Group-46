@@ -423,24 +423,50 @@ app.get("/seedUsers", async (req, res) => {
 
 app.post("/offers", async (req, res) => {
     try {
-        const newOffer = new Offer(req.body)
-        await newOffer.save()
-        res.json({ message: "Offer created" })
+        const { itemId, buyerId, sellerId, offerPrice, comment, status } = req.body;
+
+        const newOffer = new Offer({
+            itemId,
+            buyerId,
+            sellerId,
+            offerPrice,
+            comment,
+            status: status || "pending"
+        });
+
+        await newOffer.save();
+        res.json({ message: "Offer created", offer: newOffer });
     } catch (error) {
-        console.log(error)
-        res.status(500).send("Error creating offer")
+        console.log(error);
+        res.status(500).send("Error creating offer");
     }
-})
+});
 
 app.get("/offers", async (req, res) => {
     try {
-        const offers = await Offer.find()
-        res.json(offers)
+        const offers = await Offer.find();
+
+        const enrichedOffers = await Promise.all(
+            offers.map(async (offer) => {
+                const buyer = await User.findById(offer.buyerId);
+                const seller = offer.sellerId
+                    ? await User.findById(offer.sellerId)
+                    : null;
+
+                return {
+                    ...offer._doc,
+                    buyerUsername: buyer ? buyer.username : "Unknown",
+                    sellerUsername: seller ? seller.username : "Unknown"
+                };
+            })
+        );
+
+        res.json(enrichedOffers);
     } catch (error) {
-        console.log(error)
-        res.status(500).send("Error retrieving offers")
+        console.log(error);
+        res.status(500).send("Error retrieving offers");
     }
-})
+});
 
 app.get("/tags", async (req, res) => {
     try {
