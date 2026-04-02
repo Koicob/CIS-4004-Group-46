@@ -139,7 +139,7 @@ export default function UserPosts() {
 
     return (
         <>
-            <div id="title"> <h2>USER'S POSTS</h2> </div>
+            <div id="title"> <h2>MY POSTS</h2> </div>
 
             <div className="post-container" >
                 {loading === false ? (
