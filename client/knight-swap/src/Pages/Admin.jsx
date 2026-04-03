@@ -185,9 +185,12 @@ export default function Admin() {
 
             <h3 className="ks-admin-section-title">Marketplace Moderation</h3>
             <div className="ks-admin-grid">
-                {allMarketItems.map((item) => (
+                {allMarketItems.map((item) => {
+                    const seller = allRegisteredUsers.find((user) => user._id.toString() === item.sellerId.toString());
+                    return (            
                     <div key={item._id} className="ks-admin-card">
                         <h4>{item.title}</h4>
+                        <p><strong>Seller:</strong> {seller ? seller.username : "Unknown"}</p>
                         <p><strong>Seller ID:</strong> {item.sellerId}</p>
                         <p><strong>Price:</strong> ${item.price}</p>
                         
@@ -208,7 +211,8 @@ export default function Admin() {
                             </button>
                         </div>
                     </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );
