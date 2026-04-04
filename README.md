@@ -29,3 +29,13 @@ locations
 tags
 
 Before running the app, please make sure to seed the database by opening your browser and visiting http://localhost:8080/seedData. This will instantly populate the locations and tags collections with standard campus data so the application may be used correctly.
+
+You can also visit http://localhost:8080/seedUsers and http://localhost:8080/seedItems to seed the database with the respective data.
+
+Regular User
+Username: testuser1
+Password: 123456
+
+Admin
+Username: admin
+Password: admin123
