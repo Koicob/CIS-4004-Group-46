@@ -15,6 +15,7 @@
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
   color: #000 !important;
+  font-weight: 700;
 }
 
 .offers-header p {
@@ -163,6 +164,23 @@
 .offer-tag {
   background: #27272a;
   color: white;
+}
+
+/* ===== OFFER STATUS COLORS ===== */
+.offer-status {
+  font-weight: 700;
+}
+
+.offer-status.pending {
+  color: #ffc904;
+}
+
+.offer-status.accepted {
+  color: #4caf50;
+}
+
+.offer-status.denied {
+  color: #ff4d4d;
 }
 
 /* ===== ERROR TEXT ===== */

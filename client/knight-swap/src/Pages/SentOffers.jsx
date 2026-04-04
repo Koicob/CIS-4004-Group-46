@@ -38,14 +38,37 @@ export default function SentOffers() {
     }
   };
 
+  const handleCancelOffer = async (offerId) => {
+    try {
+      setError("");
+
+      const response = await fetch(`http://localhost:8080/offers/${offerId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to cancel offer");
+      }
+
+      setSentOffers((prevOffers) =>
+        prevOffers.filter((offer) => offer._id !== offerId)
+      );
+
+      alert("Offer cancelled successfully.");
+    } catch (err) {
+      console.error("Error cancelling offer:", err);
+      setError(err.message || "Failed to cancel offer");
+    }
+  };
+
   return (
     <section className="offers-list-section">
-      <h2>Sent Offers</h2>
+      <h2>Sent Offers ({sentOffers.length})</h2>
 
       {loading && <p>Loading sent offers...</p>}
       {error && <p className="error-text">{error}</p>}
       {!loading && !error && sentOffers.length === 0 && (
-        <p>No sent offers found.</p>
+        <p>You have not sent any offers yet.</p>
       )}
 
       <div className="offers-grid">
@@ -55,11 +78,25 @@ export default function SentOffers() {
               <span className="offer-badge offer">Offer</span>
             </div>
 
-            <p><strong>Item:</strong> {offer.itemId}</p>
+            <p><strong>Item:</strong> {offer.itemTitle || "Unknown Item"}</p>
             <p><strong>Seller:</strong> {offer.sellerUsername || "Unknown"}</p>
-            <p><strong>Amount:</strong> {offer.offerPrice ?? "N/A"}</p>
+            <p><strong>Amount:</strong> ${offer.offerPrice ?? "N/A"}</p>
             <p><strong>Message:</strong> {offer.comment || "No message provided"}</p>
-            <p><strong>Status:</strong> {offer.status}</p>
+            <p><strong>Status:</strong>{" "} 
+              <span className={`offer-status ${offer.status}`}>
+                {offer.status}
+              </span> 
+            </p>
+            {offer.status == "pending" && (
+              <div className="offer-actions">
+                  <button
+                    className="button"
+                    onClick={() => handleCancelOffer(offer._id)}
+                  >
+                    Cancel Offer
+                  </button>
+                </div>
+                )}      
           </div>
         ))}
       </div>

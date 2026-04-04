@@ -70,12 +70,12 @@ export default function ReceivedOffers() {
 
   return (
     <section className="offers-list-section">
-      <h2>Received Offers</h2>
+      <h2>Received Offers ({receivedOffers.length})</h2>
 
       {loading && <p>Loading received offers...</p>}
       {error && <p className="error-text">{error}</p>}
       {!loading && !error && receivedOffers.length === 0 && (
-        <p>No received offers found.</p>
+        <p>You don't have any offers yet.</p>
       )}
 
       <div className="offers-grid">
@@ -85,11 +85,16 @@ export default function ReceivedOffers() {
               <span className="offer-badge offer">Offer</span>
             </div>
 
-            <p><strong>Item:</strong> {offer.itemId}</p>
+            <p><strong>Item:</strong> {offer.itemTitle || "Unknown Item"}</p>
             <p><strong>Buyer:</strong> {offer.buyerUsername || "Unknown"}</p>
-            <p><strong>Amount:</strong> {offer.offerPrice ?? "N/A"}</p>
+            <p><strong>Amount:</strong> ${offer.offerPrice ?? "N/A"}</p>
             <p><strong>Message:</strong> {offer.comment || "No message provided"}</p>
-            <p><strong>Status:</strong> {offer.status}</p>
+            <p><strong>Status:</strong>{" "} 
+              <span className={`offer-status ${offer.status}`}>
+                {offer.status}
+              </span> 
+            </p>
+
 
             {offer.status === "pending" && (
               <div className="offer-actions">

@@ -448,15 +448,30 @@ app.get("/offers", async (req, res) => {
 
         const enrichedOffers = await Promise.all(
             offers.map(async (offer) => {
-                const buyer = await User.findById(offer.buyerId);
-                const seller = offer.sellerId
-                    ? await User.findById(offer.sellerId)
-                    : null;
+                let item = null;
+                let buyer = null;
+                let seller = null;
+
+                if (offer.itemId && mongoose.Types.ObjectId.isValid(offer.itemId)) {
+                    item = await Item.findById(offer.itemId);
+                }
+
+                if (offer.buyerId && mongoose.Types.ObjectId.isValid(offer.buyerId)) {
+                    buyer = await User.findById(offer.buyerId);
+                }
+
+                if (offer.sellerId && mongoose.Types.ObjectId.isValid(offer.sellerId)) {
+                    seller = await User.findById(offer.sellerId);
+                }
 
                 return {
                     ...offer._doc,
                     buyerUsername: buyer ? buyer.username : "Unknown",
-                    sellerUsername: seller ? seller.username : "Unknown"
+                    sellerUsername: seller ? seller.username : "Unknown",
+                    itemTitle: item ? item.title : "Item no longer available",
+                    itemImage: item ? item.image : "",
+                    itemPrice: item ? item.price : null
+            
                 };
             })
         );
@@ -466,7 +481,7 @@ app.get("/offers", async (req, res) => {
         console.log(error);
         res.status(500).send("Error retrieving offers");
     }
-});
+}); 
 
 app.patch("/offers/:offerId/status", async (req, res) => {
     try {
@@ -491,6 +506,21 @@ app.patch("/offers/:offerId/status", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send("Error updating offer status");
+    }
+});
+
+app.delete("/offers/:offerId", async (req, res) => {
+    try {
+        const deletedOffer = await Offer.findByIdAndDelete(req.params.offerId);
+
+        if (!deletedOffer) {
+            return res.status(404).json({ message: "Offer not found" });
+        }
+
+        res.json({ message: "Offer cancelled successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error deleting offer");
     }
 });
 
