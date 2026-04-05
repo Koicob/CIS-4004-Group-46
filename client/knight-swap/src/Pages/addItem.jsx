@@ -166,7 +166,7 @@ export default function AddItem() {
                         <div className="col m-4">
                             <label className="item-label">PICKUP TIME:</label>
                             <br></br>
-                            <label id="reference">*PLEASE USE THE FOLLOWING FORMAT: DOW/DOW - HH:MM-HH:MM*</label>
+                            <label id="reference">*PLEASE USE THE FOLLOWING FORMAT: DOW/DOW - HH:MM-HH:MM (e.g., Mon/Wed - 09:00-10:15AM)*</label>
                             <input id="info-insert" type="text" className="form-control" style={{height: '50px'}}
                             value={pickupTime} onChange={(e) => setPickupTime(e.target.value)}/>
 
