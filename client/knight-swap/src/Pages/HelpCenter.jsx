@@ -23,10 +23,10 @@ const faqs = [
   },
   {
     id: 'account',
-    question: 'Is my @knights.ucf.edu email required?',
+    question: 'Is my @ucf.edu email required?',
     answer: (
       <>
-        <p><strong>Yes, a valid @knights.ucf.edu email is required</strong> to use UCF Student Swap. Here's why:</p>
+        <p><strong>Yes, a valid @ucf.edu email is required</strong> to use UCF Student Swap. Here's why:</p>
         <ul>
           <li><strong>Verification:</strong> It confirms you're a current UCF student, faculty, or staff member.</li>
           <li><strong>Trust:</strong> Our community stays safe because everyone is verified through UCF.</li>

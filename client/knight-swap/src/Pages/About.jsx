@@ -149,7 +149,7 @@ const About = () => {
             </p>
             <p>
               Our platform connects the UCF community exclusively, ensuring that every transaction 
-              happens between verified @knights.ucf.edu members. No more paying inflated prices to 
+              happens between verified @ucf.edu members. No more paying inflated prices to 
               strangers. No more meeting randos from public apps in sketchy parking lots.
             </p>
             <p>
@@ -193,7 +193,7 @@ const About = () => {
             <p>
               Public marketplace apps put you at risk—meeting strangers in unfamiliar locations 
               with no verification. UCF Student Swap eliminates that danger. Every user is verified 
-              with a @knights.ucf.edu email, and we encourage all exchanges at UCF Police Department 
+              with a @ucf.edu email, and we encourage all exchanges at UCF Police Department 
               Safe Exchange Spots—well-lit, monitored by surveillance, and staffed 24/7.
             </p>
           </div>
@@ -236,7 +236,7 @@ const About = () => {
               <div className="step-icon">🎓</div>
               <h3>Join</h3>
               <p>
-                Sign up with your @knights.ucf.edu email. Instant verification means you're part 
+                Sign up with your @ucf.edu email. Instant verification means you're part 
                 of the trusted Knight Nation network within minutes.
               </p>
             </div>

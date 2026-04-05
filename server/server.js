@@ -70,11 +70,12 @@ app.put("/users/:id", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        let loginUsername = req.body.username;
+        // make login case-insensitive by converting username to lowercase
+        let loginUsername = req.body.username.trim().toLowerCase();
         let loginPassword = req.body.password;
 
         const foundUser = await User.findOne({ 
-            username: loginUsername, 
+            username: { $regex: `^${req.body.username.trim()}$`, $options: "i" },
             password: loginPassword 
         });
         
@@ -93,8 +94,17 @@ app.post("/login", async (req, res) => {
 app.post("/register", async (req, res) => {
     try {
         const { email,username, password } = req.body;
+        const normalizedUsername = username.trim().toLowerCase();
+        
+        // Basic validation for email format and @ucf.edu domain
+        if (!email.toLowerCase().endsWith("@ucf.edu")) {
+            return res.status(400).json({ message: "Please use a valid @ucf.edu email address." });
+        }
 
-        const existingUser = await User.findOne({ username: username });
+        // check for duplicate username (case-insensitive)
+        const existingUser = await User.findOne({ 
+            username: { $regex: `^${normalizedUsername}$`, $options: "i" }
+        });
 
         if (existingUser) {
             return res.status(400).json({ message: "Username already exists" });
@@ -102,7 +112,9 @@ app.post("/register", async (req, res) => {
 
         const newUser = new User({
             email,
-            username,
+            // store username in lowercase so all usernames are consistent in the database, 
+            // but allow users to login with any case variation of their username
+            username: normalizedUsername,
             password,
             role: "user"
         });
@@ -131,18 +143,6 @@ app.post("/items", async (req, res) => {
         res.status(500).send("Error creating item")
     }
 })
-
-/* original app.get code
-app.get("/items", async (req, res) => {
-    try {
-        const filter = req.query.sellerId ? { sellerId: req.query.sellerId } : {};
-        const items = await Item.find(filter).populate("location").populate("tags")
-        res.json(items)
-    } catch (error) {
-        console.log(error)
-        res.status(500).send("Error retrieving items")
-    }
-})*/
 
 app.get("/items", async (req, res) => {
     try {

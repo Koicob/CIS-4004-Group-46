@@ -129,6 +129,10 @@ function Login() {
       alert("Passwords do not match");
       return;
     }
+    if (!registerEmail.toLowerCase().endsWith("@ucf.edu")) {
+      alert("Please use a valid @ucf.edu email address.");
+      return;
+    }
     
     try {
       const response = await fetch("http://localhost:8080/register", {
