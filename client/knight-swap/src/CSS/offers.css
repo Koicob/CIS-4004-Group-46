@@ -14,8 +14,12 @@
 .offers-header h1 {
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
-  color: #000 !important;
-  font-weight: 700;
+  color: #2a2a2a !important;
+  font-weight: 640;
+  border-bottom: 2px solid #f5c518;
+  padding-bottom: 0.2em;
+  display: inline-block; /* keeps the line only under text */
+  letter-spacing: 0.03em;
 }
 
 .offers-header p {

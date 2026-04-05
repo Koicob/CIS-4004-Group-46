@@ -150,18 +150,32 @@ app.get("/items", async (req, res) => {
         const tag = req.query.tag ? req.query.tag.trim() : "";
         const sellerId = req.query.sellerId ? req.query.sellerId.trim() : "";
         const sort = req.query.sort || "newest";
+        const includeSold = req.query.includeSold === "true";
 
         let query = {};
+        let andConditions = [];
+        
+        if (!includeSold) {
+            andConditions.push({
+                $or: [
+                    { isSold: false },
+                    { isSold: { $exists: false } }
+                ]
+            });
+            
+        };
 
         if (sellerId) {
-            query.sellerId = sellerId;
+            andConditions.push({sellerId: sellerId});
         }
 
         if (search) {
-            query.$or = [
-                { title: { $regex: search, $options: "i" } },
-                { description: { $regex: search, $options: "i" } }
-            ];
+            andConditions.push({
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { description: { $regex: search, $options: "i" } }
+                ]
+            });
         }
 
         if (tag && tag !== "All") {
@@ -171,8 +185,13 @@ app.get("/items", async (req, res) => {
 
             const tagIds = foundTags.map((t) => t._id);
 
-            query.tags = { $in: tagIds };
+            andConditions.push({ tags: { $in: tagIds } });
         }
+        
+        if (andConditions.length > 0) {
+            query.$and = andConditions;
+        }
+
         let sortOption = { createdAt: -1 };
 
         if (sort === "priceLow") {
@@ -492,17 +511,37 @@ app.patch("/offers/:offerId/status", async (req, res) => {
             return res.status(400).json({ error: "Invalid status value" });
         }
 
-        const updatedOffer = await Offer.findByIdAndUpdate(
-            offerId,
-            { status },
-            { new: true }
-        );
-
-        if (!updatedOffer) {
+        const selectedOffer = await Offer.findById(offerId);
+        
+        if (!selectedOffer) {
             return res.status(404).json({ error: "Offer not found" });
         }
 
-        res.json(updatedOffer);
+        //update selected offer
+        selectedOffer.status = status;
+        await selectedOffer.save();
+
+        //if offer accepted, mark item as sold and deny all other offers for that item
+        if (status === "accepted") {
+            
+            // deny all other offers for the same item
+            await Offer.updateMany(
+                { 
+                    itemId: selectedOffer.itemId, 
+                    _id: { $ne: selectedOffer._id },
+                    status: "pending" 
+                },
+
+                { $set: { status: "denied" } }   
+            );
+
+            // mark item as sold
+            await Item.findByIdAndUpdate(selectedOffer.itemId, {
+                isSold: true
+            });
+        }
+
+        res.json(selectedOffer);
     } catch (error) {
         console.log(error);
         res.status(500).send("Error updating offer status");

@@ -57,11 +57,14 @@ export default function ReceivedOffers() {
         throw new Error(`Failed to update offer to ${newStatus}`);
       }
 
-      setReceivedOffers((prevOffers) =>
+      /*setReceivedOffers((prevOffers) =>
         prevOffers.map((offer) =>
           offer._id === offerId ? { ...offer, status: newStatus } : offer
         )
-      );
+      );*/
+
+      //refetch all offers so the other offers update too
+      await fetchReceivedOffers();
     } catch (err) {
       console.error("Error updating offer status:", err);
       setError(err.message || "Failed to update offer status");

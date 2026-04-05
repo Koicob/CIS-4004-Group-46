@@ -98,7 +98,7 @@ export default function AddItem() {
 
     return (
         <>
-            <div id="title"><h2>CREATE A POST</h2></div>
+            <div id="title"><h2>Create New Post</h2></div>
 
             <div className="container">
                 <div className="row">

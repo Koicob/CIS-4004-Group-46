@@ -22,9 +22,15 @@ export default function UserPosts() {
     // Fetch User's Posts
     useEffect(() => {
         const fetchUserPosts = async () => {
-            const response = await fetch(`http://localhost:8080/items?sellerId=${sellerId}`);
+            const response = await fetch(`http://localhost:8080/items?sellerId=${sellerId}&includeSold=true`);
             const data = await response.json();
-            setUserPosts(data);
+            //setUserPosts(data);
+
+            //put sold items at the end of the list
+            const sortedPosts = data.sort((a, b) => {
+                return (a.isSold === true) - (b.isSold === true);
+            });
+            setUserPosts(sortedPosts);
 
             if (data.length === 0) {
             setLoading(false);
@@ -65,6 +71,8 @@ export default function UserPosts() {
 
     // Set info for specifc User Post
     const EditPost = (post) => {
+        // prevent user from editing sold items
+        if (post.isSold) return;
         setEditingPost(post._id);
         setData({
             title: post.title,
@@ -105,7 +113,15 @@ export default function UserPosts() {
         await fetch(`http://localhost:8080/items/${id}`, {
             method: "DELETE"
         });
-        setUserPosts(userPosts.filter(post => post._id !== id));
+        //setUserPosts(userPosts.filter(post => post._id !== id));
+
+        //order to stay correct after deletion
+        const remainingPosts = userPosts.filter(post => post._id !== id);
+
+        const sortedRemainingPosts = remainingPosts.sort((a, b) => {
+            return (a.isSold === true) - (b.isSold === true);
+        });
+        setUserPosts(sortedRemainingPosts);    
     }
 
     // Save User's Edit
@@ -130,16 +146,22 @@ export default function UserPosts() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         });
-        const res = await fetch(`http://localhost:8080/items?sellerId=${sellerId}`);
+        const res = await fetch(`http://localhost:8080/items?sellerId=${sellerId}&includeSold=true`);
         const updated = await res.json();
-        setUserPosts(updated);
+        //setUserPosts(updated);
 
+        //keep sold items at the end of the list
+        const sortedUpdatedPosts = updated.sort((a, b) => {
+            return (a.isSold === true) - (b.isSold === true);
+        });
+        setUserPosts(sortedUpdatedPosts);
+        
         setEditingPost(null);
     }
 
     return (
         <>
-            <div id="title"> <h2>MY POSTS</h2> </div>
+            <div id="title"> <h2>My Posts</h2> </div>
 
             <div className="post-container" >
                 {loading === false ? (
@@ -217,8 +239,28 @@ export default function UserPosts() {
 
                                             <div id="posts-info" className="rounded border">
                                                 <div className="m-4">
-                                                    
-                                                    <h3 id="title">{post.title}</h3>
+                                                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+                                                    <h3 id="title" style={{margin : 0 }}>{post.title}</h3>
+
+                                                    {/* show SOLD badge when item is sold */}
+                                                    {post.isSold && (
+                                                        <span
+                                                            style={{
+                                                                background: "#f5c518",
+                                                                color: "#000",
+                                                                fontWeight: "700",
+                                                                padding: "5px 10px",
+                                                                borderRadius: "1000px",
+                                                                fontSize: "0.8rem",
+                                                                
+                                                                
+                                                            }}
+                                                    >
+                                                            SOLD
+                                                        </span>
+                                                    )}
+                                                    </div>
+
                                                     <label className="item-label">DESCRIPTION:</label>
                                                     <p>{post.description}</p>
                                                     <label className="item-label">PRICE:</label>
@@ -233,7 +275,13 @@ export default function UserPosts() {
                                             </div>
                                             {/* Edit and Delete Buttons */}
                                             <div id="posts-buttons" className="d-flex flex-column">
-                                                <button id='edit'className="m-4" onClick={() => EditPost(post)}>EDIT</button>
+                                                {/* hide EDIT button when item is sold */}
+                                                {!post.isSold && (
+                                                    <button id='edit' className="m-4" onClick={() => EditPost(post)}>
+                                                        EDIT
+                                                    </button>
+                                                )}
+                                            
                                                 <button id='delete'className="m-4" onClick={() => DeletePost(post._id)}>DELETE</button>
                                             </div> 
                                         </>
