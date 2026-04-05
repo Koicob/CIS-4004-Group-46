@@ -11,7 +11,7 @@ import AddItem from "./Pages/addItem";
 import Offers from "./Pages/offers";
 import UserPosts from "./Pages/userPosts";
 import ViewPost from "./Pages/viewPost";
-import Admin from './pages/Admin';
+import Admin from './Pages/Admin';
 import Menu from './Components/Navbar';
 import AdminMenu from './Components/adminNav';
 
